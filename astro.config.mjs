@@ -6,5 +6,4 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [react()],
   site: 'https://astrounaut.github.io',
-  base: 'astro-example'
 });
