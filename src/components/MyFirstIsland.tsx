@@ -9,7 +9,7 @@ export function MyFirstIsland() {
   }
 
   return (
-    <button onClick={handleClick}>
+    <button className="border" onClick={handleClick}>
       Clicked {count} times
     </button>
   )

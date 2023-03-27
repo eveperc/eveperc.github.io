@@ -1,0 +1,46 @@
+.wrap {
+    display: grid;
+    grid-template-areas:
+      "header header header"
+      "main main sidebar"
+      "lorem lorem sidebar"
+      "footer footer footer";
+    grid-gap: 0.75rem;
+    overflow-x: auto;
+  > .header,.sidebar,.main,.lorem,.adv,.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background: hsl(0, 0%, 96%);
+    border: 2px solid hsl(0, 0%, 80%);
+    color: hsl(0, 0%, 40%);
+  }
+  .header {
+    grid-area: header;
+    background: lightblue;
+    border-color: hsla(100, 30%, 35%, 0.8);
+    color: #fff;
+  }
+  .sidebar {
+    grid-area: sidebar;
+  }
+  .main {
+    grid-area: main;
+    height: 2000px;
+  }
+  .lorem {
+    grid-area: lorem;
+    background: hsla(320, 80%, 50%, 0.2);
+    border-color: hsla(320, 30%, 35%, 0.8);
+    color: hsl(320, 30%, 35%);
+  }
+  .adv {
+    grid-area: adv;
+  }
+  .footer {
+    grid-area: footer;
+  }
+}
+
