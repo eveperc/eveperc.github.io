@@ -7,6 +7,8 @@ import { MyContent } from "../components/Content";
 import { MyLowContent } from "../components/LowContent";
 import { MyFooter } from "../components/Footer";
 import "../styles/global.scss";
+
+
 interface HeaderSearchProps {
   links: {
     link: string;
@@ -107,10 +109,9 @@ const data: FooterSimpleProps = {
   </head>
   <body>
     <div class="wrap">
-      <MyHeader links={headLink.links}>
-      </MyHeader>
+      <MyHeader links={headLink.links} />
       <MySidebar>Sidebar (static HTML)</MySidebar>
-      <MyContent>Static content like text, images, etc.</MyContent>
+      <MyContent/>
       <MyLowContent>
         <MySecondIsland client:visible />
       </MyLowContent>
