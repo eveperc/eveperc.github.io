@@ -1,4 +1,5 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import { MyFirstIsland } from "../components/MyFirstIsland";
 import { MySecondIsland } from "../components/MySecondIsland";
 import { MyHeader } from "../components/Header";
@@ -7,7 +8,6 @@ import { MyContent } from "../components/Content";
 import { MyLowContent } from "../components/LowContent";
 import { MyFooter } from "../components/Footer";
 import "../styles/global.scss";
-
 
 interface HeaderSearchProps {
   links: {
@@ -100,22 +100,14 @@ const data: FooterSimpleProps = {
 };
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Astro Islands</title>
-  </head>
-  <body>
-    <div class="wrap">
-      <MyHeader links={headLink.links} />
-      <MySidebar>Sidebar (static HTML)</MySidebar>
-      <MyContent/>
-      <MyLowContent>
-        <MySecondIsland client:visible />
-      </MyLowContent>
-      <MyFooter links={data.links}>Footer (static HTML)</MyFooter>
-    </div>
-  </body>
-</html>
+<Layout title="neo eve log" description="ネオイブログ">
+  <div class="wrap">
+    <MyHeader links={headLink.links} />
+    <MySidebar>Sidebar (static HTML)</MySidebar>
+    <MyContent />
+    <MyLowContent>
+      <MySecondIsland client:visible />
+    </MyLowContent>
+    <MyFooter links={data.links}>Footer (static HTML)</MyFooter>
+  </div>
+</Layout>
