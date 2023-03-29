@@ -1,28 +1,52 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import { newtClient } from '../../lib/newt'
-import type { Article } from '../../lib/newt'
+import Layout from "../../layouts/Layout.astro";
+import { newtClient } from "../../lib/newt";
+import type { Article } from "../../lib/newt";
+import { Blog } from "../../components/Blog";
+import * as cheerio from "cheerio";
+
+const generateTableOfContent = (body: string) => {
+  const $ = cheerio.load(body, { decodeEntities: false });
+  let generateHtml = "";
+  generateHtml = generateHtml + "<ul>";
+  $("h2, h3").each((index, elm) => {
+    const text = $(elm).html();
+    const tag = $(elm)[0].name;
+
+    const refId = $(elm)[0].attribs.id;
+    generateHtml =
+      generateHtml +
+      `<li class="toc_${tag}" key=${index}>` +
+      `  <a class="link link-info" href="#${refId}">${text}</a>` +
+      "</li>";
+  });
+  generateHtml = generateHtml + "</ul>";
+  return generateHtml;
+};
 
 export const getStaticPaths = async () => {
   const { items: articles } = await newtClient.getContents<Article>({
-    appUid: 'blog',
-    modelUid: 'article',
+    appUid: "blog",
+    modelUid: "article",
     query: {
-      select: ['title', 'slug', 'body'],
+      select: ["title", "slug", "body"],
     },
-  })
+  });
   return articles.map((article) => ({
-    params: {slug: article.slug },
-    props: {article },
-  }))
-}
+    params: { slug: article.slug },
+    props: { article },
+  }));
+};
 
-const { article } = Astro.props
+const { article } = Astro.props;
+const toc: string = generateTableOfContent(article.body);
 ---
 
 <Layout title={article.title} description="投稿詳細ページです">
-  <main>
+  <div class="main content">
     <h2>{article.title}</h2>
-    <article set:html={article.body} />
-  </main>
+    <div id="blog_toc" set:html={toc} />
+    <Blog html={article.body} client:load/>
+  </div>
 </Layout>
+

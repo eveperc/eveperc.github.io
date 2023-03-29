@@ -3,38 +3,25 @@
     grid-template-areas:
       "header header header"
       "main main sidebar"
-      "lorem lorem sidebar"
+      "sub sub sidebar"
       "footer footer footer";
     grid-gap: 0.75rem;
     overflow-x: auto;
-  > .header,.sidebar,.main,.lorem,.adv,.footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  > .header,.sidebar,.main,.sub,.adv,.footer {
     text-align: center;
     padding: 2rem;
-    background: hsl(0, 0%, 96%);
-    border: 2px solid hsl(0, 0%, 80%);
-    color: hsl(0, 0%, 40%);
   }
   .header {
     grid-area: header;
-    background: lightblue;
-    border-color: hsla(100, 30%, 35%, 0.8);
-    color: #fff;
   }
   .sidebar {
     grid-area: sidebar;
   }
   .main {
     grid-area: main;
-    height: 2000px;
   }
-  .lorem {
-    grid-area: lorem;
-    background: hsla(320, 80%, 50%, 0.2);
-    border-color: hsla(320, 30%, 35%, 0.8);
-    color: hsl(320, 30%, 35%);
+  .sub {
+    grid-area: sub;
   }
   .adv {
     grid-area: adv;
@@ -42,5 +29,49 @@
   .footer {
     grid-area: footer;
   }
+  .content{
+    h2{
+      font-size:20px;
+    }
+  }
+}
+/* blog table of content*/
+#blog_toc ul {
+  @apply bg-base-200 rounded px-2 py-2;
 }
 
+#blog_toc li {
+  @apply my-1.5 ml-4;
+}
+
+#blog_toc a:hover {
+  color: #4c74b9;
+}
+
+#blog_toc a:active {
+  color: #4c74b9;
+}
+
+#blog_toc .toc_h3 {
+  @apply pl-4;
+}
+
+@media (max-width: 767px) {
+  .wrap{
+    display:grid;
+    grid-template-areas:
+      "header"
+      "main"
+      "sub"
+      "sidebar"
+      "footer";
+    grid-gap:0;
+    > .header,.sidebar,.main,.sub,.adv,.footer {
+      width:100vw;
+      padding:1rem;
+    }
+    pre,code{
+      overflow:scroll;
+    }
+  }
+}

@@ -1,57 +1,21 @@
-import { Header, Menu, Group, Center, Burger, Container, rem } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { IconChevronDown } from '@tabler/icons-react';
-import { MantineLogo } from '@mantine/ds';
-
-interface HeaderSearchProps {
-  links: { link: string; label: string; links: { link: string; label: string }[] }[];
-}
-
-export function MyHeader({ links }: HeaderSearchProps) {
-  const items = links.map((link) => {
-    const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link}>{item.label}</Menu.Item>
-    ));
-
-    if (menuItems) {
-      return (
-        <Menu key={link.label} trigger="hover" transitionProps={{ exitDuration: 0 }} withinPortal>
-          <Menu.Target>
-            <a
-              href={link.link}
-              onClick={(event) => event.preventDefault()}
-            >
-              <Center>
-                <span>{link.label}</span>
-              </Center>
-            </a>
-          </Menu.Target>
-          <Menu.Dropdown>{menuItems}</Menu.Dropdown>
-        </Menu>
-      );
-    }
-
-    return (
-      <a
-        key={link.label}
-        href={link.link}
-        onClick={(event) => event.preventDefault()}
-      >
-        {link.label}
-      </a>
-    );
-  });
+export function MyHeader() {
 
   return (
-    <Header className="header w-full" height={56} mb={120}>
-      <Container className="w-full">
-        <div className="flex justify-between">
-          <MantineLogo size={28} inverted />
-          <Group spacing={5} className="flex">
-            {items}
-          </Group>
+    <div className="header navbar bg-base-300">
+      <div className="flex-1 px-2 lg:flex-none">
+        <a href="/" className="text-lg btn btn-ghost font-bold">NeoEveLog</a>
+      </div>
+      <div className="flex justify-end flex-1 px-2">
+        <div className="flex items-stretch">
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost rounded-btn">Menu</label>
+            <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+              <li><a>Item 1</a></li>
+              <li><a>Item 2</a></li>
+            </ul>
+          </div>
         </div>
-      </Container>
-    </Header>
+      </div>
+    </div>
   );
 }

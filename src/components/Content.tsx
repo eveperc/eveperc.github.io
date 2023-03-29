@@ -1,33 +1,37 @@
-import { SimpleGrid, Card, Image, Text, Container, AspectRatio } from '@mantine/core';
-import { newtClient,Article } from "../lib/newt";
+import type {Article} from "../lib/newt";
 
-const { items: articles } = await newtClient.getContents<Article>({
-  appUid: "blog",
-  modelUid: "article",
-  query: {
-    select: ["title", "slug","body"],
-  },
-});
-
-export function MyContent() {
-
+type MyContentProps ={
+  articles:Article[];
+}
+export const MyContent = ({articles}:MyContentProps) =>{
+  if (!articles) {
+    return (
+      <div className="main">
+        Not Contents
+      </div>
+    );
+  }
   const cards = articles.map((article) => (
-    <Card key={article.title} p="md" radius="md" component="a" href={`/articles/${article.slug}`} className="px-0.5">
-      <AspectRatio ratio={1920 / 1080}>
-      </AspectRatio>
-      <Text color="dimmed" size="xs" transform="uppercase" weight={700} mt="md">
-      </Text>
-      <Text mt={5}>
-        {article.title}
-      </Text>
-    </Card>
+    <div className="card w-full md:w-96 bg-base-100 shadow-xl my-10">
+      <figure><img src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+      <div className="card-body">
+        <h2 className="card-title">
+          {article.title}
+          <div className="badge badge-secondary">NEW</div>
+        </h2>
+        <div className="card-actions justify-end">
+          <a href={`/articles/${article.slug}`}>
+            <button className="btn btn-primary">Read More</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
   ));
 
   return (
-    <Container className="w-full" py="xl">
-      <SimpleGrid className="w-full grid grid-cols-2" cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-        {cards}
-      </SimpleGrid>
-    </Container>
+    <div className="main">
+      {cards}
+    </div>
   );
 }
