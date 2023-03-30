@@ -16,6 +16,7 @@ permissions:
 env:
   NEWT_SPACE_UID: ${{ secrets.NEWT_SPACE_UID }}
   NEWT_CDN_API_TOKEN: ${{ secrets.NEWT_CDN_API_TOKEN }}
+  SITE_URL: ${{variables.SITE_URL}}
 jobs:
   build:
     runs-on: ubuntu-latest
