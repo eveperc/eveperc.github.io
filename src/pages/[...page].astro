@@ -7,9 +7,24 @@ import Pagination from "../components/Pagination.astro";
 import "../styles/global.scss";
 
 import { newtClient } from "../lib/newt";
-import type { Article } from "../lib/newt";
+import type { Article, Category } from "../lib/newt";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const { items: categoryData } = await newtClient.getContents<Article>({
+    appUid: "blog",
+    modelUid: "article",
+    query: {
+      select: ["category"],
+    },
+  });
+  const categoryContent = categoryData.map((category: Article): Category => {
+    return {
+      name: category.category.name,
+      slug: category.category.slug,
+    };
+  }).filter(
+    (category,index, self) => self.findIndex((e) => e.name === category.name) === index
+  );
   const postsData = await newtClient.getContents<Article>({
     appUid: "blog",
     modelUid: "article",
@@ -19,9 +34,14 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   });
   const postsContents: Article[] = postsData.items;
 
-  return paginate(postsContents, { pageSize: 10 });
+  return paginate(postsContents, {
+    props: {
+      category: categoryContent,
+    },
+    pageSize: 10,
+  });
 }
-const { page } = Astro.props;
+const { page, category } = Astro.props;
 const data: Article[] = page.data;
 ---
 

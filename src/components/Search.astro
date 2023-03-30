@@ -1,0 +1,19 @@
+---
+import { SearchComponent } from "../components/Search";
+import { newtClient } from "../lib/newt";
+import type { Article } from "../lib/newt";
+import { searchAtom } from '../atoms/atoms.js'
+import {atom} from 'jotai';
+
+const readOnlyText = atom((get) => get(searchAtom));
+const { items: articles } = await newtClient.getContents<Article>({
+  appUid: "blog",
+  modelUid: "article",
+  query: {
+    select: ["title", "slug"],
+  },
+});
+
+---
+
+<SearchComponent articles={articles} client:load/>

@@ -4,11 +4,15 @@ export interface Article {
   title:string
   slug:string
   body:string
-  categories:[
-    {
+  category:{
       _id:string
+      name:string
+      slug:string
     }
-  ];
+}
+export interface Category {
+  name:string,
+  slug:string,
 }
 
 export const newtClient = createClient({

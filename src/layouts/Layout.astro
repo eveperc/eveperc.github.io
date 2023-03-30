@@ -2,12 +2,36 @@
 import { MyHeader } from "../components/Header";
 import { MySidebar } from "../components/Sidebar";
 import { MyFooter } from "../components/Footer";
+import Search from "../components/Search.astro";
 import "../styles/global.scss";
+import { newtClient } from "../lib/newt";
+import type { Article, Category } from "../lib/newt";
+
 export interface Props {
   title: string;
   description: string;
 }
-const { title, description } = Astro.props;
+const { items: categoryData } = await newtClient.getContents<Article>({
+  appUid: "blog",
+  modelUid: "article",
+  query: {
+    select: ["category"],
+  },
+});
+const categoryContent = categoryData
+  .map((category: Article): Category => {
+    return {
+      name: category.category.name,
+      slug: category.category.slug,
+    };
+  })
+  .filter(
+    (category, index, self) =>
+      self.findIndex((e) => e.name === category.name) === index
+  );
+
+const { title, description} = Astro.props;
+const url = import.meta.env.SITE_URL;
 ---
 
 <!DOCTYPE html>
@@ -23,7 +47,9 @@ const { title, description } = Astro.props;
   <body>
     <div class="wrap">
       <MyHeader />
-      <MySidebar>Sidebar (static HTML)</MySidebar>
+      <MySidebar url={url} category={categoryContent}>
+        <Search />
+      </MySidebar>
       <slot />
       <MyFooter>Footer (static HTML)</MyFooter>
     </div>
