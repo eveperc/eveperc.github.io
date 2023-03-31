@@ -1,0 +1,55 @@
+---
+import type { GetStaticPathsOptions } from "astro";
+import Layout from "../layouts/Layout.astro";
+import { MyContent } from "../components/Content";
+import { MyLowContent } from "../components/LowContent";
+import Pagination from "../components/Pagination.astro";
+import "../styles/global.scss";
+
+import { newtClient } from "../lib/newt";
+import type { Article, Category } from "../lib/newt";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const { items: categoryData } = await newtClient.getContents<Article>({
+    appUid: "blog",
+    modelUid: "article",
+    query: {
+      select: ["category"],
+    },
+  });
+  const categoryContent = categoryData.map((category: Article): Category => {
+    return {
+      name: category.category.name,
+      slug: category.category.slug,
+    };
+  }).filter(
+    (category,index, self) => self.findIndex((e) => e.name === category.name) === index
+  );
+  const postsData = await newtClient.getContents<Article>({
+    appUid: "blog",
+    modelUid: "article",
+    query: {
+      select: ["title", "slug", "body"],
+    },
+  });
+  const postsContents: Article[] = postsData.items;
+
+  return paginate(postsContents, {
+    props: {
+      category: categoryContent,
+    },
+    pageSize: 10,
+  });
+}
+const { page, category } = Astro.props;
+const data: Article[] = page.data;
+---
+
+<Layout title="NeoEveLog" description="ネオイブログ">
+  <MyContent articles={data} />
+  <MyLowContent>
+    <h1>{page.currentPage}ページ</h1>
+    {page.url.prev ? <a href={page.url.prev}>Previous</a> : null}
+    {page.url.next ? <a href={page.url.next}>Next</a> : null}
+  </MyLowContent>
+</Layout>
