@@ -2,7 +2,6 @@
 import { MyHeader } from "../components/Header";
 import { MySidebar } from "../components/Sidebar";
 import { MyFooter } from "../components/Footer";
-import Search from "../components/Search.astro";
 import "../styles/global.scss";
 import { newtClient } from "../lib/newt";
 import type { Article, Category } from "../lib/newt";
@@ -46,9 +45,8 @@ const url = import.meta.env.SITE_URL;
   </head>
   <body>
     <div class="wrap">
-      <MyHeader />
+      <MyHeader url={url}/>
       <MySidebar url={url} category={categoryContent}>
-        <Search />
       </MySidebar>
       <slot />
       <MyFooter>Footer (static HTML)</MyFooter>

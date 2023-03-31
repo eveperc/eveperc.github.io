@@ -1,19 +1,20 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import { SearchComponent } from "../components/Search";
+import { SearchResult } from "../components/SearchResultArea";
 import { newtClient } from "../lib/newt";
 import type { Article } from "../lib/newt";
-import { searchAtom } from '../atoms/atoms.js'
-import {atom} from 'jotai';
 
-const readOnlyText = atom((get) => get(searchAtom));
 const { items: articles } = await newtClient.getContents<Article>({
   appUid: "blog",
   modelUid: "article",
   query: {
-    select: ["title", "slug"],
+    select: ["title", "slug", "body"],
   },
 });
-
 ---
 
-<SearchComponent articles={articles} client:load/>
+<Layout title="aa" description="aa">
+  <SearchComponent client:load />
+  <SearchResult articles={articles} client:load />
+</Layout>

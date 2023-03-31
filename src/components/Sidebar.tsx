@@ -1,5 +1,6 @@
 import React, { ReactNode, FC } from 'react'
-import { Category } from "../lib/newt.ts"
+import { Category } from "../lib/newt"
+
 type MySidebarProps = {
   children: ReactNode;
   category: Category[];

@@ -1,8 +1,7 @@
 import { useAtom } from 'jotai';
-import { searchAtom } from '../atoms/atoms.js';
-import type {Article} from '../lib/newt.js';
+import { searchAtom } from '../atoms/atoms';
 
-export function SearchComponent(articles:Article[]) {
+export function SearchComponent() {
   const [text, setText] = useAtom(searchAtom);
   const handleChange = (e: any) => {
     setText(e.target.value)
