@@ -7,6 +7,6 @@ export function SearchComponent() {
     setText(e.target.value)
   }
   return (
-    <input type="text" placeholder="検索" className="input input-bordered input-info w-full max-w-xs" value={text} onChange={handleChange} />
+    <input type="text" placeholder="検索" className="sub input input-bordered input-info w-full max-w-xs" value={text} onChange={handleChange} />
   )
 }

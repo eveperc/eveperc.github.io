@@ -4,13 +4,15 @@ import { Category } from "../lib/newt"
 type MySidebarProps = {
   children: ReactNode;
   category: Category[];
-  url:string;
+  url: string;
 };
 
 export const MySidebar: FC<MySidebarProps> = (props) => {
-  const list = props.category.map((c)=>(
+  const list = props.category.map((c) => (
     <a href={`${props.url}/categories/${c.slug}`}>
-      {c.name}
+      <button className="btn btn-accent">
+        {c.name}
+      </button>
     </a>
   ));
   return (

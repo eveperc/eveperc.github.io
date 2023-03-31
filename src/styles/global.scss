@@ -2,8 +2,9 @@
     display: grid;
     grid-template-areas:
       "header header header"
-      "main main sidebar"
       "sub sub sidebar"
+      "main main sidebar"
+      "low low sidebar"
       "footer footer footer";
     grid-gap: 0.75rem;
     overflow-x: auto;
@@ -23,6 +24,9 @@
   }
   .sub {
     grid-area: sub;
+  }
+  .low {
+    grid-area: page;
   }
   .adv {
     grid-area: adv;
@@ -62,8 +66,9 @@
     display:grid;
     grid-template-areas:
       "header"
-      "main"
       "sub"
+      "main"
+      "low"
       "sidebar"
       "footer";
     grid-gap:0;

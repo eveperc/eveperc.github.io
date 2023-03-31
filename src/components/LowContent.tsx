@@ -5,7 +5,7 @@ type MyLowContentProps = {
 }
 export const MyLowContent: FC<MyLowContentProps> = (props) => {
   return (
-    <div className="sub">
+    <div className="low">
       {props.children}
     </div>
   );

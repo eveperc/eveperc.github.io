@@ -1,6 +1,7 @@
+import { MyContent } from "../components/Content";
 import { readOnlySearchAtom } from '../atoms/atoms';
 import type { Article } from '../lib/newt.js';
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 
 type SearchResultProps = {
   articles: Article[];
@@ -9,18 +10,13 @@ export function SearchResult(props: SearchResultProps) {
 
   const [text] = useAtom(readOnlySearchAtom);
 
-  const result = props.articles.map((a) => {
+  const result = props.articles.filter((a) => {
     const body = a.body.replace(/(<([^>]+)>)/gi, '');
     if (body.toLowerCase().indexOf(text) !== -1) {
-      return (
-        <div>{a.title}</div>
-      );
+      return a;
     }
   });
   return (
-    <div>
-      {result}
-      {text}
-    </div>
+    <MyContent articles={result} />
   )
 }
