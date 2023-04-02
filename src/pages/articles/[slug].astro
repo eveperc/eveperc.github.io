@@ -29,19 +29,21 @@ const updatedAt = new Date(article.updatedAt).toLocaleString("ja");
 <Layout id="blogDetail" title={article.title} description="投稿詳細ページです">
   <Breadcrumbs title={article.title} />
   <div class="main content">
-    <figure class="bg-white flex justify-center h-50">
-      <img src={article.coverImage.src} alt={article.coverImage.altText} />
+    <figure class="bg-white flex justify-center max-h-96">
+      <img class="max-w-sm" src={article.coverImage.src} alt={article.coverImage.altText}/>
     </figure>
-    <h2>{article.title}</h2>
-    <div class="badge badge-outline">{updatedAt}</div>
-    <div class="badge badge-secondary">{article.category.name}</div>
+    <div class="my-10 grid grid-cols-4 grid-rows-5">
+      <h2 class="col-span-4 row-span-4 text-5xl font-bold">{article.title}</h2>
+      <div class="text-lg font-bold badge badge-outline">{updatedAt}</div>
+      <div class="text-lg font-bold badge badge-secondary">{article.category.name}</div>
+    </div>
     <div id="blog_toc" set:html={toc} />
     <Blog body={article.body} />
   </div>
 </Layout>
 
 <style is:global>
-  .wrap{
+  .wrap {
     grid-template-areas:
       "header header header"
       "sub sub sidebar"

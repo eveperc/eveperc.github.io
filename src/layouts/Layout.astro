@@ -9,7 +9,7 @@ import type { Article, Category } from "../lib/newt";
 export interface Props {
   title: string;
   description: string;
-  id : string;
+  id: string;
 }
 const { items: categoryData } = await newtClient.getContents<Article>({
   appUid: "blog",
@@ -30,13 +30,25 @@ const categoryContent = categoryData
       self.findIndex((e) => e.name === category.name) === index
   );
 
-const { title, description,id } = Astro.props;
+const { title, description, id } = Astro.props;
 const url = import.meta.env.SITE_URL;
 ---
 
 <!DOCTYPE html>
 <html lang="ja" data-theme="dark">
   <head>
+    <script
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=G-GQRBPJDFRQ"
+    ></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-GQRBPJDFRQ");
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
