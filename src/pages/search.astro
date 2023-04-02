@@ -9,12 +9,12 @@ const { items: articles } = await newtClient.getContents<Article>({
   appUid: "blog",
   modelUid: "article",
   query: {
-    select: ["title", "slug", "body"],
+    select: ["title", "slug", "body","coverImage","updatedAt"],
   },
 });
 ---
 
-<Layout title="aa" description="aa">
+<Layout id="search" title="NeoEveLog" description="検索">
   <SearchComponent client:load />
   <SearchResult articles={articles} client:load />
 </Layout>

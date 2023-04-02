@@ -1,35 +1,16 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { Blog, generateTableOfContent } from "../../components/Blog";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { newtClient } from "../../lib/newt";
 import type { Article } from "../../lib/newt";
-import { Blog } from "../../components/Blog";
-import * as cheerio from "cheerio";
-
-const generateTableOfContent = (body: string) => {
-  const $ = cheerio.load(body, { decodeEntities: false });
-  let generateHtml = "";
-  generateHtml = generateHtml + "<ul>";
-  $("h2, h3").each((index, elm) => {
-    const text = $(elm).html();
-    const tag = $(elm)[0].name;
-
-    const refId = $(elm)[0].attribs.id;
-    generateHtml =
-      generateHtml +
-      `<li class="toc_${tag}" key=${index}>` +
-      `  <a class="link link-info" href="#${refId}">${text}</a>` +
-      "</li>";
-  });
-  generateHtml = generateHtml + "</ul>";
-  return generateHtml;
-};
 
 export const getStaticPaths = async () => {
   const { items: articles } = await newtClient.getContents<Article>({
     appUid: "blog",
     modelUid: "article",
     query: {
-      select: ["title", "slug", "body"],
+      select: ["title", "slug", "body", "category", "coverImage", "updatedAt"],
     },
   });
   return articles.map((article) => ({
@@ -37,16 +18,35 @@ export const getStaticPaths = async () => {
     props: { article },
   }));
 };
-
+type Props = {
+  article: Article;
+};
 const { article } = Astro.props;
 const toc: string = generateTableOfContent(article.body);
+const updatedAt = new Date(article.updatedAt).toLocaleString("ja");
 ---
 
-<Layout title={article.title} description="投稿詳細ページです">
+<Layout id="blogDetail" title={article.title} description="投稿詳細ページです">
+  <Breadcrumbs title={article.title} />
   <div class="main content">
+    <figure class="bg-white flex justify-center h-50">
+      <img src={article.coverImage.src} alt={article.coverImage.altText} />
+    </figure>
     <h2>{article.title}</h2>
+    <div class="badge badge-outline">{updatedAt}</div>
+    <div class="badge badge-secondary">{article.category.name}</div>
     <div id="blog_toc" set:html={toc} />
-    <Blog html={article.body} client:load/>
+    <Blog body={article.body} />
   </div>
 </Layout>
 
+<style is:global>
+  .wrap{
+    grid-template-areas:
+      "header header header"
+      "sub sub sidebar"
+      "main main sidebar"
+      "low low sidebar"
+      "footer footer footer";
+  }
+</style>

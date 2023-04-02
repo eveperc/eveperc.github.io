@@ -11,9 +11,11 @@ export const MyContent = ({articles}:MyContentProps) =>{
       </div>
     );
   }
-  const cards = articles.map((article) => (
-    <div className="card w-full md:w-96 bg-base-100 shadow-xl my-10">
-      <figure><img src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+  const cards = articles.map((article,index) => (
+    <div key={index} className="card w-full md:w-96 bg-base-300 shadow-xl my-10">
+      <figure className="bg-white">
+        <img className="w-20 h-20" src={article.coverImage.src} alt={article.coverImage.altText} />
+      </figure>
       <div className="card-body">
         <h2 className="card-title">
           {article.title}
@@ -26,11 +28,10 @@ export const MyContent = ({articles}:MyContentProps) =>{
         </div>
       </div>
     </div>
-
   ));
 
   return (
-    <div className="main">
+    <div className="main grid justify-center lg:grid-cols-2 xl:grid-cols-3">
       {cards}
     </div>
   );

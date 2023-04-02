@@ -3,53 +3,37 @@ import type { GetStaticPathsOptions } from "astro";
 import Layout from "../layouts/Layout.astro";
 import { MyContent } from "../components/Content";
 import { MyLowContent } from "../components/LowContent";
-import Pagination from "../components/Pagination.astro";
+import { Pagination } from "../components/Pagination";
 import "../styles/global.scss";
 
 import { newtClient } from "../lib/newt";
-import type { Article, Category } from "../lib/newt";
+import type { Article, Page } from "../lib/newt";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const { items: categoryData } = await newtClient.getContents<Article>({
-    appUid: "blog",
-    modelUid: "article",
-    query: {
-      select: ["category"],
-    },
-  });
-  const categoryContent = categoryData.map((category: Article): Category => {
-    return {
-      name: category.category.name,
-      slug: category.category.slug,
-    };
-  }).filter(
-    (category,index, self) => self.findIndex((e) => e.name === category.name) === index
-  );
   const postsData = await newtClient.getContents<Article>({
     appUid: "blog",
     modelUid: "article",
     query: {
-      select: ["title", "slug", "body"],
+      select: ["title", "slug", "body", "coverImage", "updatedAt"],
     },
   });
   const postsContents: Article[] = postsData.items;
 
   return paginate(postsContents, {
-    props: {
-      category: categoryContent,
-    },
-    pageSize: 10,
+    pageSize: 9,
   });
 }
-const { page, category } = Astro.props;
+
+interface Props {
+  page: Page;
+}
+const { page } = Astro.props;
 const data: Article[] = page.data;
 ---
 
-<Layout title="NeoEveLog" description="ネオイブログ">
+<Layout id="top" title="NeoEveLog" description="ネオイブログ">
   <MyContent articles={data} />
   <MyLowContent>
-    <h1>{page.currentPage}ページ</h1>
-    {page.url.prev ? <a href={page.url.prev}>Previous</a> : null}
-    {page.url.next ? <a href={page.url.next}>Next</a> : null}
+    <Pagination page={page} />
   </MyLowContent>
 </Layout>

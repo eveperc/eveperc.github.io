@@ -1,8 +1,9 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import { newtClient } from "../../../lib/newt";
+import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { MyContent } from "../../../components/Content";
 import { MyLowContent } from "../../../components/LowContent";
+import { newtClient } from "../../../lib/newt";
 import type { Article } from "../../../lib/newt";
 import type { GetStaticPathsOptions } from "astro";
 
@@ -11,7 +12,7 @@ export const getStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
     appUid: "blog",
     modelUid: "article",
     query: {
-      select: ["title", "slug", "category"],
+      select: ["category"],
     },
   });
   const categoryContents = categoryData;
@@ -19,7 +20,7 @@ export const getStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
     appUid: "blog",
     modelUid: "article",
     query: {
-      select: ["title", "slug", "category"],
+      select: ["title", "slug", "category", "coverImage", "updatedAt"],
     },
   });
   return categoryContents.map((categoryContent: Article) => {
@@ -30,7 +31,7 @@ export const getStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
       params: {
         category: categoryContent.category.slug,
       },
-      pageSize: 10,
+      pageSize: 9,
     });
   });
 };
@@ -40,7 +41,8 @@ const { page } = Astro.props;
 const data: Article[] = page.data;
 ---
 
-<Layout title={category ? category : ""} description={category ? category : ""}>
+<Layout id="category" title="NeoEveLog" description={category ? category : ""}>
+  <Breadcrumbs title={category? category:""}/>
   <MyContent articles={data} />
   <MyLowContent>
     <h1>{page.currentPage}ページ</h1>

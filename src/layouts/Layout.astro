@@ -9,6 +9,7 @@ import type { Article, Category } from "../lib/newt";
 export interface Props {
   title: string;
   description: string;
+  id : string;
 }
 const { items: categoryData } = await newtClient.getContents<Article>({
   appUid: "blog",
@@ -29,7 +30,7 @@ const categoryContent = categoryData
       self.findIndex((e) => e.name === category.name) === index
   );
 
-const { title, description} = Astro.props;
+const { title, description,id } = Astro.props;
 const url = import.meta.env.SITE_URL;
 ---
 
@@ -43,11 +44,10 @@ const url = import.meta.env.SITE_URL;
     <title>{title}</title>
     <meta name="description" content={description} />
   </head>
-  <body>
+  <body id={id}>
     <div class="wrap">
-      <MyHeader url={url}/>
-      <MySidebar url={url} category={categoryContent}>
-      </MySidebar>
+      <MyHeader url={url} />
+      <MySidebar url={url} category={categoryContent}>Category</MySidebar>
       <slot />
       <MyFooter>Footer (static HTML)</MyFooter>
     </div>
