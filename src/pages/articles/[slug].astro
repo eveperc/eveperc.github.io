@@ -32,23 +32,12 @@ const updatedAt = new Date(article.updatedAt).toLocaleString("ja");
     <figure class="bg-white flex justify-center max-h-96">
       <img class="max-w-sm" src={article.coverImage.src} alt={article.coverImage.altText}/>
     </figure>
-    <div class="my-10 grid grid-cols-4 grid-rows-5">
+    <div class="my-10 grid grid-cols-4 grid-rows-6">
       <h2 class="col-span-4 row-span-4 text-5xl font-bold">{article.title}</h2>
-      <div class="text-lg font-bold badge badge-outline">{updatedAt}</div>
-      <div class="text-lg font-bold badge badge-secondary">{article.category.name}</div>
+      <div class="col-span-2 text-lg font-bold badge badge-outline">{updatedAt}</div>
+      <div class="col-span-2 text-lg font-bold badge badge-secondary">{article.category.name}</div>
     </div>
     <div id="blog_toc" set:html={toc} />
     <Blog body={article.body} />
   </div>
 </Layout>
-
-<style is:global>
-  .wrap {
-    grid-template-areas:
-      "header header header"
-      "sub sub sidebar"
-      "main main sidebar"
-      "low low sidebar"
-      "footer footer footer";
-  }
-</style>
