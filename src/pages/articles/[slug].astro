@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { Blog, generateTableOfContent } from "../../components/Blog";
+import { Blog } from "../../components/Blog";
+import { BlogBody, generateTableOfContent } from "../../components/ParseOfBody";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { newtClient } from "../../lib/newt";
 import type { Article } from "../../lib/newt";
@@ -27,17 +28,34 @@ const updatedAt = new Date(article.updatedAt).toLocaleString("ja");
 ---
 
 <Layout id="blogDetail" title={article.title} description="投稿詳細ページです">
-  <Breadcrumbs title={article.title} />
-  <div class="main content">
-    <figure class="bg-white flex justify-center max-h-96">
-      <img class="max-w-sm" src={article.coverImage.src} alt={article.coverImage.altText}/>
-    </figure>
+  <Breadcrumbs>
+    <Breadcrumbs.ul>
+      <Breadcrumbs.li><a href="/">Home</a></Breadcrumbs.li>
+      <Breadcrumbs.li>{article.title}</Breadcrumbs.li>
+    </Breadcrumbs.ul>
+  </Breadcrumbs>
+  <Blog>
+    <Blog.Image>
+      <img
+        class="max-w-sm"
+        src={article.coverImage.src}
+        alt={article.coverImage.altText}
+      />
+    </Blog.Image>
     <div class="my-10 grid grid-cols-4 grid-rows-6">
-      <h2 class="col-span-4 row-span-4 text-5xl font-bold">{article.title}</h2>
-      <div class="col-span-2 text-lg font-bold badge badge-outline">{updatedAt}</div>
-      <div class="col-span-2 text-lg font-bold badge badge-secondary">{article.category.name}</div>
+      <Blog.Title>{article.title}</Blog.Title>
+      <Blog.UpdatedAt>
+        {updatedAt}
+      </Blog.UpdatedAt>
+      <Blog.Category>
+        {article.category.name}
+      </Blog.Category>
     </div>
-    <div id="blog_toc" set:html={toc} />
-    <Blog body={article.body} />
-  </div>
+    <Blog.Toc>
+      {toc}
+    </Blog.Toc>
+    <Blog.Body>
+      <BlogBody body={article.body} />
+    </Blog.Body>
+  </Blog>
 </Layout>

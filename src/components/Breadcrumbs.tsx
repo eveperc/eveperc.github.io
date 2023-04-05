@@ -1,14 +1,31 @@
+
 type BreadcrumbsProps = {
-  title: string,
+  children: React.ReactNode
 }
-const homeUrl = import.meta.env.SITE_URL;
-export function Breadcrumbs(props: BreadcrumbsProps) {
-  return (
-    <div className="sub text-sm breadcrumbs">
-      <ul>
-        <li><a href={homeUrl}>Home</a></li>
-        <li>{props.title}</li>
-      </ul>
-    </div>
-  )
+
+type BreadcrumbsComposition = {
+  ul: React.FC<BreadcrumbsUnorderedProps>
+  li: React.FC<BreadcrumbsListProps>
+};
+
+type BreadcrumbsUnorderedProps = {
+  children: React.ReactNode;
 }
+type BreadcrumbsListProps = {
+  children: React.ReactNode;
+}
+
+export const Breadcrumbs:React.FC<BreadcrumbsProps> & BreadcrumbsComposition = ({children}) => {
+  return <div className="sub text-sm breadcrumbs">{children}</div>
+};
+
+const ul:React.FC<BreadcrumbsUnorderedProps> = ({children}) => {
+  return <ul>{children}</ul>
+};
+
+const li:React.FC<BreadcrumbsListProps> = ({children}) => {
+  return <li>{children}</li>
+}
+
+Breadcrumbs.ul = ul;
+Breadcrumbs.li = li;

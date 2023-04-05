@@ -1,54 +1,60 @@
-import parse, { HTMLReactParserOptions, domToReact, Element } from 'html-react-parser';
-import * as cheerio from "cheerio";
+import type React from "react";
 
-export const generateTableOfContent = (body: string) => {
-  const $ = cheerio.load(body, { decodeEntities: false });
-  let generateHtml = "";
-  generateHtml = generateHtml + "<ul>";
-  $("h2, h3").each((index, elm) => {
-    const text = $(elm).html();
-    const tag = $(elm)[0].name;
+type BlogProps = {
+  children: React.ReactNode;
+}
+type BlogComposition = {
+  Image: React.FC<BlogImageProps>;
+  UpdatedAt: React.FC<BlogUpdatedAtProps>;
+  Category: React.FC<BlogCategoryProps>;
+  Title: React.FC<BlogTitleProps>
+  Toc: React.FC<BlogTocProps>
+  Body: React.FC<BlogBodyProps>
+};
+type BlogImageProps = {
+  children: React.ReactNode;
+};
+type BlogUpdatedAtProps = {
+  children: React.ReactNode;
+};
+type BlogCategoryProps = {
+  children: React.ReactNode;
+};
+type BlogTitleProps = {
+  children: React.ReactNode;
+};
+type BlogTocProps = {
+  children: React.ReactNode;
+};
+type BlogBodyProps = {
+  children: React.ReactNode;
+};
 
-    const refId = `anker${index}`;
-    generateHtml =
-      generateHtml +
-      `<li class="toc_${tag}" key=${index}>` +
-      `  <a class="link link-info" href="#${refId}">${text}</a>` +
-      "</li>";
-  });
-  generateHtml = generateHtml + "</ul>";
-  return generateHtml;
+export const Blog: React.FC<BlogProps> & BlogComposition = ({ children }) => {
+  return <div className="main content">{children}</div>
+}
+const BlogImage: React.FC<BlogImageProps> = ({ children }) => {
+  return <figure className="bg-white flex justify-center max-h-96">{children}</figure>
+}
+const BlogUpdatedAt: React.FC<BlogUpdatedAtProps> = ({ children }) => {
+  return <div className="col-span-2 text-lg font-bold badge badge-outline">{children}</div>
+}
+const BlogCategory: React.FC<BlogCategoryProps> = ({ children }) => {
+  return <div className="col-span-2 text-lg font-bold badge badge-secondary">{children}</div>
+}
+const BlogTitle: React.FC<BlogTitleProps> = ({ children }) => {
+  return <h2 className="col-span-4 row-span-4 text-5xl font-bold">{children}</h2>
+}
+const BlogToc: React.FC<BlogTocProps> = ({ children }) => {
+  return <div id="blog_toc">{children}</div>
+}
+const BlogBody: React.FC<BlogBodyProps> = ({ children }) => {
+  return <div className="text-left">{children}</div>
 }
 
-type Props = {
-  body: string
-}
-export const Blog: React.FC<Props> = ({ body }) => {
-  const htmlParser = (html: string) => {
-    let h2 = 0;
-    const options: HTMLReactParserOptions = {
-      replace: domNode => {
-        if (domNode instanceof Element && domNode.attribs) {
-          if (!domNode) {
-            return;
-          }
-          if (domNode.name === 'h2') {
-            h2 += 1;
-            return (
-              <h2 id={`anker${h2}`}>
-                {domToReact(domNode.children, options)}
-              </h2>
-            );
-          }
-        }
-      }
-    }
-    return parse(html, options)
-  }
-  const html = htmlParser(body)
-  return (
-    <div className="text-left">
-      {html}
-    </div>
-  )
-}
+Blog.Image = BlogImage;
+Blog.UpdatedAt = BlogUpdatedAt;
+Blog.Category = BlogCategory;
+Blog.Title = BlogTitle;
+Blog.Toc = BlogToc;
+Blog.Body = BlogBody;
