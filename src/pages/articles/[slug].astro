@@ -51,9 +51,7 @@ const updatedAt = new Date(article.updatedAt).toLocaleString("ja");
         {article.category.name}
       </Blog.Category>
     </div>
-    <Blog.Toc>
-      {toc}
-    </Blog.Toc>
+    <Blog.Toc set:html={toc}/>
     <Blog.Body>
       <BlogBody body={article.body} />
     </Blog.Body>

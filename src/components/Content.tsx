@@ -1,9 +1,17 @@
-import type {Article} from "../lib/newt";
+import type React from "react";
+import type { Article } from "../lib/newt";
 
-type MyContentProps ={
-  articles:Article[];
+type MyContentProps = {
+  articles: Article[];
 }
-export const MyContent = ({articles}:MyContentProps) =>{
+type TitleProps = {
+  children: React.ReactNode;
+}
+type ImageProps = {
+  children: React.ReactNode;
+}
+
+export const MyContent = ({ articles }: MyContentProps) => {
   if (!articles) {
     return (
       <div className="main">
@@ -11,7 +19,7 @@ export const MyContent = ({articles}:MyContentProps) =>{
       </div>
     );
   }
-  const cards = articles.map((article,index) => (
+  const cards = articles.map((article, index) => (
     <div key={index} className="card w-full md:w-96 bg-base-300 shadow-xl my-10">
       <figure className="bg-white">
         <img className="w-20 h-20" src={article.coverImage.src} alt={article.coverImage.altText} />

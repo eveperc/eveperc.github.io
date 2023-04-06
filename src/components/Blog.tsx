@@ -46,7 +46,7 @@ const BlogTitle: React.FC<BlogTitleProps> = ({ children }) => {
   return <h2 className="col-span-4 row-span-4 text-5xl font-bold">{children}</h2>
 }
 const BlogToc: React.FC<BlogTocProps> = ({ children }) => {
-  return <div id="blog_toc">{children}</div>
+  return <div id="blog_toc" >{children}</div>
 }
 const BlogBody: React.FC<BlogBodyProps> = ({ children }) => {
   return <div className="text-left">{children}</div>
