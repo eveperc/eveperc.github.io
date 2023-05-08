@@ -1,8 +1,12 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
-import { MyContent } from "../../../components/Content";
-import { MyLowContent } from "../../../components/LowContent";
+import Articles from "../../../components/Articles.astro";
+import { LowContent } from "../../../components/LowContent";
+import { Pagination } from "../../../components/Pagination";
+import {Category} from "../../../components/Category";
+import {categoryContent} from "../../../lib/category";
+
 import { newtClient } from "../../../lib/newt";
 import type { Article } from "../../../lib/newt";
 import type { GetStaticPathsOptions } from "astro";
@@ -15,7 +19,6 @@ export const getStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
       select: ["category"],
     },
   });
-  const categoryContents = categoryData;
   const { items: articles } = await newtClient.getContents<Article>({
     appUid: "blog",
     modelUid: "article",
@@ -23,7 +26,7 @@ export const getStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
       select: ["title", "slug", "category", "coverImage", "updatedAt"],
     },
   });
-  return categoryContents.map((categoryContent: Article) => {
+  return categoryData.map((categoryContent: Article) => {
     const postsContents: Article[] = articles.filter(
       (item: Article) => item.category.slug === categoryContent.category.slug
     );
@@ -39,14 +42,14 @@ export const getStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
 const { category } = Astro.params;
 const { page } = Astro.props;
 const data: Article[] = page.data;
+const url = import.meta.env.SITE_URL;
 ---
 
 <Layout id="category" title="NeoEveLog" description={category ? category : ""}>
-  <Breadcrumbs title={category? category:""}/>
-  <MyContent articles={data} />
-  <MyLowContent>
-    <h1>{page.currentPage}ページ</h1>
-    {page.url.prev ? <a href={page.url.prev}>Previous</a> : null}
-    {page.url.next ? <a href={page.url.next}>Next</a> : null}
-  </MyLowContent>
+  <Breadcrumbs title={category ? category : ""} />
+  <Category url={url} data={categoryContent}/>
+  <Articles articles={data} />
+  <LowContent>
+    <Pagination page={page} />
+  </LowContent>
 </Layout>

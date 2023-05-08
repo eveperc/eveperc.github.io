@@ -1,9 +1,9 @@
 import React,{ReactNode,FC} from 'react'
 
-type MyLowContentProps = {
+type LowContentProps = {
   children: ReactNode;
 }
-export const MyLowContent: FC<MyLowContentProps> = (props) => {
+export const LowContent: FC<LowContentProps> = (props) => {
   return (
     <div className="low">
       {props.children}

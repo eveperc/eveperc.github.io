@@ -9,12 +9,30 @@ const { items: articles } = await newtClient.getContents<Article>({
   appUid: "blog",
   modelUid: "article",
   query: {
-    select: ["title", "slug", "body","coverImage","updatedAt"],
+    select: ["title", "slug", "body", "coverImage", "updatedAt"],
   },
 });
 ---
 
 <Layout id="search" title="NeoEveLog" description="検索">
-  <SearchComponent client:load />
-  <SearchResult articles={articles} client:load />
+  <div class="search">
+    <SearchComponent client:load />
+    <SearchResult articles={articles} client:only />
+  </div>
 </Layout>
+
+<style lang="scss" is:global>
+  #search {
+    .wrap {
+      grid-template-areas:
+        "header header header"
+        "search search search"
+        "main main main"
+        "low low low"
+        "footer footer footer";
+      .search {
+        grid-area: search;
+      }
+    }
+  }
+</style>

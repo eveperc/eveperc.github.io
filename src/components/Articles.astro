@@ -1,0 +1,44 @@
+---
+import { Article } from "./Article";
+import type { Article as blog } from "../lib/newt";
+const { articles } = Astro.props;
+interface Props {
+  articles: blog[];
+}
+---
+
+<div class="main grid justify-center lg:grid-cols-2 xl:grid-cols-3">
+  {
+    articles.map((article, index) => (
+      <Article>
+        <Article.Image>
+          <img
+            class="w-20 h-20"
+            src={article.coverImage.src}
+            alt={article.coverImage.altText}
+          />
+        </Article.Image>
+        <Article.Body>
+          <Article.Title>
+            {article.title}
+            <div class="badge badge-secondary">NEW</div>
+          </Article.Title>
+          <div class="body__button-wrap">
+            <Article.Category category={article.category} />
+            <Article.Button url={`/articles/${article.slug}`}>
+              Read More
+            </Article.Button>
+          </div>
+        </Article.Body>
+      </Article>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  .body__button-wrap {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

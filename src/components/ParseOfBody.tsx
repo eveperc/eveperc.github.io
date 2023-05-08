@@ -5,11 +5,11 @@ export const generateTableOfContent = (body: string) => {
   const $ = cheerio.load(body, { decodeEntities: false });
   let generateHtml = "";
   generateHtml = generateHtml + "<ul>";
-  $("h2, h3").each((index, elm) => {
+  $("h3, h4").each((index, elm) => {
     const text = $(elm).html();
     const tag = $(elm)[0].name;
 
-    const refId = `anker${index}`;
+    const refId = `anker${index + 1}`;
     generateHtml =
       generateHtml +
       `<li class="toc_${tag}" key=${index}>` +
@@ -33,7 +33,7 @@ export const BlogBody: React.FC<Props> = ({ body }) => {
             return;
           }
           if (domNode.name === 'h2') {
-            h2 += 1;
+            h2 ++;
             return (
               <h2 id={`anker${h2}`}>
                 {domToReact(domNode.children, options)}

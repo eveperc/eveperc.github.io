@@ -16,7 +16,7 @@ type BreadcrumbsListProps = {
 }
 
 export const Breadcrumbs:React.FC<BreadcrumbsProps> & BreadcrumbsComposition = ({children}) => {
-  return <div className="sub text-sm breadcrumbs">{children}</div>
+  return <div className="text-sm breadcrumbs">{children}</div>
 };
 
 const ul:React.FC<BreadcrumbsUnorderedProps> = ({children}) => {

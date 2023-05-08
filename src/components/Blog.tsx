@@ -24,7 +24,7 @@ type BlogTitleProps = {
   children: React.ReactNode;
 };
 type BlogTocProps = {
-  children: React.ReactNode;
+  html: string;
 };
 type BlogBodyProps = {
   children: React.ReactNode;
@@ -37,16 +37,19 @@ const BlogImage: React.FC<BlogImageProps> = ({ children }) => {
   return <figure className="bg-white flex justify-center max-h-96">{children}</figure>
 }
 const BlogUpdatedAt: React.FC<BlogUpdatedAtProps> = ({ children }) => {
-  return <div className="col-span-2 text-lg font-bold badge badge-outline">{children}</div>
+  return <div className="p-3 text-3xl font-bold">{children}</div>
 }
 const BlogCategory: React.FC<BlogCategoryProps> = ({ children }) => {
-  return <div className="col-span-2 text-lg font-bold badge badge-secondary">{children}</div>
+  return <div className="p-3 text-3xl font-bold badge badge-accent">{children}</div>
 }
 const BlogTitle: React.FC<BlogTitleProps> = ({ children }) => {
-  return <h2 className="col-span-4 row-span-4 text-5xl font-bold">{children}</h2>
+  return <h2 className="p-5 text-5xl font-bold">{children}</h2>
 }
-const BlogToc: React.FC<BlogTocProps> = ({ children }) => {
-  return <div id="blog_toc" >{children}</div>
+const BlogToc: React.FC<BlogTocProps> = ({ html }) => {
+  const setHtml = () => {
+    return { __html: html };
+  }
+  return <div id="blog_toc" className="toc" dangerouslySetInnerHTML={setHtml()} />
 }
 const BlogBody: React.FC<BlogBodyProps> = ({ children }) => {
   return <div className="text-left">{children}</div>
