@@ -1,61 +1,54 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { Blog } from "../../components/Blog";
-import { BlogBody, generateTableOfContent } from "../../components/ParseOfBody";
-import { Breadcrumbs } from "../../components/Breadcrumbs";
-import { newtClient } from "../../lib/newt";
-import type { Article } from "../../lib/newt";
+import Layout from "@layouts/Layout.astro";
+import Blog from "@page-components/Articles/Blog";
+import { generateTableOfContent } from "@page-components/Articles/ParseOfBody";
+import {Breadcrumbs} from "@components/Breadcrumbs/Breadcrumbs";
+import {getContents} from "@lib/newtClient";
+import type { PostItem } from "@lib/newt";
 
 export const getStaticPaths = async () => {
-  const { items: articles } = await newtClient.getContents<Article>({
-    appUid: "blog",
-    modelUid: "article",
-    query: {
-      select: ["title", "slug", "body", "category", "coverImage", "updatedAt"],
-    },
-  });
-  return articles.map((article) => ({
-    params: { slug: article.slug },
-    props: { article },
+  const posts = await getContents();
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
   }));
 };
 type Props = {
-  article: Article;
+  post: PostItem;
 };
-const { article } = Astro.props;
-const toc: string = generateTableOfContent(article.body);
-const updatedAt = new Date(article.updatedAt).toLocaleString("ja");
+const { post } = Astro.props;
+const toc: string = generateTableOfContent(post.content);
+const updatedAt = new Date(post.date).toLocaleString("ja");
 ---
 
-<Layout id="detail" title={article.title} description="投稿詳細ページです">
+<Layout id="detail" title={post.title} description="投稿詳細ページです">
   <Breadcrumbs>
     <Breadcrumbs.ul>
       <Breadcrumbs.li><a href="/">Home</a></Breadcrumbs.li>
-      <Breadcrumbs.li>{article.title}</Breadcrumbs.li>
+      <Breadcrumbs.li>{post.title}</Breadcrumbs.li>
     </Breadcrumbs.ul>
   </Breadcrumbs>
-  <Blog.Toc html={toc} />
+  <Blog.TOC html={toc} />
   <Blog>
     <Blog.Image>
       <img
         class="max-w-sm"
-        src={article.coverImage.src}
-        alt={article.coverImage.altText}
+        src={post.thumbnail.src}
+        alt={post.thumbnail.altText}
       />
     </Blog.Image>
     <div class="my-10">
-      <Blog.Title>{article.title}</Blog.Title>
+      <Blog.Title>{post.title}</Blog.Title>
       <div class="flex justify-around items-center">
         <Blog.UpdatedAt>
           最終更新日：{updatedAt}
         </Blog.UpdatedAt>
         <Blog.Category>
-          {article.category.name}
+          {post.category.name}
         </Blog.Category>
       </div>
     </div>
-    <Blog.Body>
-      <BlogBody body={article.body} />
-    </Blog.Body>
+    <Blog.Body content={post.content} />
   </Blog>
 </Layout>

@@ -1,38 +1,18 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { SearchComponent } from "../components/Search";
-import { SearchResult } from "../components/SearchResultArea";
-import { newtClient } from "../lib/newt";
-import type { Article } from "../lib/newt";
+import Layout from "@layouts/Layout.astro";
+import SearchIsrand from "@page-components/Searches/SearchIsrand.astro";
+import Articles from "@page-components/Searches/Articles";
+import { getContents } from "@lib/newtClient";
 
-const { items: articles } = await newtClient.getContents<Article>({
-  appUid: "blog",
-  modelUid: "article",
-  query: {
-    select: ["title", "slug", "body", "coverImage", "updatedAt"],
-  },
-});
+const articles = await getContents();
 ---
 
 <Layout id="search" title="NeoEveLog" description="検索">
-  <div class="search">
-    <SearchComponent client:load />
-    <SearchResult articles={articles} client:only />
+  <SearchIsrand />
+  <div class="main grid justify-center lg:grid-cols-2 xl:grid-cols-3">
+    <Articles articles={articles} client:only />
   </div>
 </Layout>
 
-<style lang="scss" is:global>
-  #search {
-    .wrap {
-      grid-template-areas:
-        "header header header"
-        "search search search"
-        "main main main"
-        "low low low"
-        "footer footer footer";
-      .search {
-        grid-area: search;
-      }
-    }
-  }
+<style lang="scss">
 </style>

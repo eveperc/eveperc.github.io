@@ -173,8 +173,3 @@ export type RelationPost = {
   relation: [{}]
   popular: boolean
 }
-
-export type Breadcrumb = {
-  name: string
-  href: string
-}

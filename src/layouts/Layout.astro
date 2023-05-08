@@ -1,45 +1,25 @@
 ---
-import { MyHeader } from "../components/Header";
-import { MyFooter } from "../components/Footer";
-import "../styles/global.scss";
+import Head from "@layouts/components/Head.astro";
+import Header from "@layouts/components/Header.astro";
+import Footer from "@layouts/components/Footer.astro";
+import "@styles/global.scss";
 
-export interface Props {
+export type Props = {
   title: string;
   description: string;
   id: string;
-}
+};
 
-const { title, description, id } = Astro.props;
+const { title, description } = Astro.props;
 const url = import.meta.env.SITE_URL;
 ---
 
 <!DOCTYPE html>
 <html lang="ja" data-theme="dark">
-  <head>
-    <script
-      type="text/partytown"
-      src="https://www.googletagmanager.com/gtag/js?id=G-GQRBPJDFRQ"
-    ></script>
-    <script type="text/partytown">
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-GQRBPJDFRQ");
-    </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-  </head>
-  <body id={id}>
-    <div class="wrap">
-      <MyHeader url={url} />
-      <slot />
-      <MyFooter>Footer (static HTML)</MyFooter>
-    </div>
+  <Head title={title} description={description} />
+  <body>
+    <Header url={url} />
+    <slot />
+    <Footer />
   </body>
 </html>

@@ -1,43 +1,39 @@
 ---
-import type { GetStaticPathsOptions } from "astro";
-import Layout from "../layouts/Layout.astro";
-import Articles from "../components/Articles.astro";
-import { LowContent } from "../components/LowContent";
-import { Pagination } from "../components/Pagination";
-import {Category} from "../components/Category";
-import "../styles/global.scss";
+import Article from "@components/ArticleCard/Article";
+import Pagination from "@components/Pagination/Pagination.astro";
+import Category from "@components/Categries/Categories.astro";
 
-import { newtClient } from "../lib/newt";
-import {categoryContent} from "../lib/category";
-import type { Article, Page } from "../lib/newt";
+import { getContents } from "@lib/newtClient";
+import { categoryContent } from "@lib/category";
+
+import type { GetStaticPathsOptions } from "astro";
+import type { PostItem } from "@lib/newt";
+
+import Layout from "@layouts/Layout.astro";
+import type { Page } from "@myTypes/index";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const postsData = await newtClient.getContents<Article>({
-    appUid: "blog",
-    modelUid: "article",
-    query: {
-      select: ["title", "slug", "body", "category", "coverImage", "updatedAt"],
-    },
-  });
-  const postsContents: Article[] = postsData.items;
-
+  const postsContents = await getContents();
   return paginate(postsContents, {
     pageSize: 9,
   });
 }
-
-interface Props {
+type Props = {
   page: Page;
-}
+};
 const { page } = Astro.props;
-const data: Article[] = page.data;
+const data: PostItem[] = page.data;
 const url = import.meta.env.SITE_URL;
 ---
 
 <Layout id="top" title="NeoEveLog" description="NeoEveLog">
-  <Category url={url} data={categoryContent}/>
-  <Articles articles={data} />
-  <LowContent>
-    <Pagination page={page} />
-  </LowContent>
+  <Category url={url} data={categoryContent} />
+  <div class="main grid justify-center lg:grid-cols-2 xl:grid-cols-3">
+    {
+      data.map((item,index) => (
+        <Article key={index} article={item} />
+      ))
+    }
+  </div>
+  <Pagination page={page} />
 </Layout>
