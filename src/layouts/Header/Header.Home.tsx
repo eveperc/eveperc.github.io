@@ -7,7 +7,7 @@ export type HeaderHomeProps = {
 export default function({ }: HeaderHomeProps) {
   return (
     <a href="/">
-      <DaisyUIBtn colors={DaisyUIColors.primary.primary}>Home</DaisyUIBtn>
+      <DaisyUIBtn colors='btn-primary'>Home</DaisyUIBtn>
     </a>
   )
 }

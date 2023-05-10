@@ -8,6 +8,11 @@
 <style lang="scss" is:global>
   #wrapper {
     display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "toc"
+      "auto";
+    gap: 2rem;
   }
   @media screen and (min-width: 768px) {
     #wrapper {
@@ -15,12 +20,12 @@
   }
   @media screen and (min-width: 1024px) {
     #wrapper {
+      display: grid;
       grid-template-columns: 4fr 1fr;
       grid-template-areas: "auto toc";
-      gap: 2rem;
       #blog_toc {
         ul {
-          height:fit-content;
+          height: fit-content;
           position: sticky;
           top: 0;
         }

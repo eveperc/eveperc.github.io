@@ -7,7 +7,7 @@ type ButtonProps = {
 }
 export default function({ children,colors,outline }: ButtonProps) {
   const btnOutline = outline ? 'btn-outline' : ''
-  const btnColors = `btn btn-${colors}`
+  const btnColors = `btn ${colors}`
   const text = 'font-black text-lg'
   const style = `${text} ${btnColors} ${btnOutline}`
   return (

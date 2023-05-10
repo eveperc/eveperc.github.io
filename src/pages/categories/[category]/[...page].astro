@@ -37,7 +37,7 @@ const url = import.meta.env.SITE_URL;
 <Layout title="NeoEveLog" description={category ? category : ""}>
   <Categories url={url} data={categoryContent} category={category} />
   <ArticlesWrapper>
-    {data.map((item, index) => <Article key={index} article={item} />)}
+    {data.map((item, index) => <Article article={item} />)}
   </ArticlesWrapper>
   <Pagination page={page} />
 </Layout>

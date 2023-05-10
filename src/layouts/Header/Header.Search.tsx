@@ -9,7 +9,7 @@ export default function({ url }: HeaderSearchProps) {
   return (
     <a href={`${url}/search`}>
       <DaisyUIBtn
-        colors={DaisyUIColors.info.info}
+        colors='btn-info'
         outline={true}
       >
         Search

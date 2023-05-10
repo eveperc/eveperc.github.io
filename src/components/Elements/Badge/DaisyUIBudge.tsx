@@ -6,7 +6,7 @@ type DaisyUIBudgeProps = {
 }
 
 export default function ({children,colors}: DaisyUIBudgeProps) {
-  const badge = `badge badge-${colors}`;
+  const badge = `badge ${colors}`;
   return (
     <div className={badge}>
       {children}

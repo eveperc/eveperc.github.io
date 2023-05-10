@@ -7,7 +7,6 @@ import CardCategory, { CardCategoryProps } from "./Card.Category";
 import CardUpdatedAt, { CardUpdatedAtProps } from "./Card.UpdatedAt";
 import CardButton, { CardButtonProps } from "./Card.Button";
 
-import DaisyUIColors from "@layouts/Colors";
 type CardsProps = {
   children: ReactNode;
 }
@@ -21,7 +20,7 @@ type CardComposition = {
 }
 
 const Card: FC<CardsProps> & CardComposition = ({ children }) => {
-  const bg = `bg-${DaisyUIColors.base[300]} shadow-xl`
+  const bg = `bg-base-300 shadow-xl`
   const width = "w-full"
   const height = "h-auto"
   const margin = "my-10"

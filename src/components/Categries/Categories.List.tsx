@@ -10,12 +10,12 @@ export type CategoriesListProps = {
 
 export default function({ data, url, category }: CategoriesListProps) {
   const isSelect = (name: string) => (
-    <DaisyUIBtn colors={DaisyUIColors.success.success}>
+    <DaisyUIBtn colors='btn-success'>
       {name}
     </DaisyUIBtn>
   )
   const isNotSelect = (name: string) => (
-    <DaisyUIBtn colors={DaisyUIColors.accent.accent}>
+    <DaisyUIBtn colors='btn-accent'>
       {name}
     </DaisyUIBtn>
   )

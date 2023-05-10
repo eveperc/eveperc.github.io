@@ -8,7 +8,7 @@ export type BlogCategoryProps = {
 export default function({ children, url }: BlogCategoryProps) {
   return (
     <a href={`/categories/${url}`}>
-      <DaisyUIBtn colors={DaisyUIColors.accent.accent}>
+      <DaisyUIBtn colors='btn-accent'>
         {children}
       </DaisyUIBtn>
     </a>

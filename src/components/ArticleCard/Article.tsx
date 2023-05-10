@@ -22,7 +22,7 @@ export default function({ article}: ArticlesProps) {
       <Card.Body>
         <Card.Title url={url}>
           {article.title}
-          <DaisyUIBudge colors={DaisyUIColors.secondary.secondary}>NEW</DaisyUIBudge>
+          <DaisyUIBudge colors='btn-secondary'>NEW</DaisyUIBudge>
         </Card.Title>
       </Card.Body>
       <div className="card-actions p-5 flex justify-between">
