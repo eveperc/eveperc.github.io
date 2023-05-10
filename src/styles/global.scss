@@ -1,110 +1,42 @@
 html {
   font-size: 62.5%;
-}
-
-#detail .wrap {
-  grid-template-areas:
-    "header header header"
-    "breadcrumbs breadcrumbs toc"
-    "main main toc"
-    "low low toc"
-    "footer footer footer";
-}
-.wrap {
-    display: grid;
-    grid-template-areas:
-      "header header header"
-      "category category category"
-      "main main main"
-      "low low low"
-      "footer footer footer";
-    grid-gap: 0.75rem;
-    overflow-x: auto;
-    grid-template-columns: 1fr 70% 1fr;
-  > .header,.category,.sidebar,.main,.toc,.breadcrumbs,.low,.adv,.footer {
-    text-align: center;
-    padding: 2rem;
-  }
-  .header {
-    grid-area: header;
-  }
-  .category {
-    grid-area: category;
-    width:80%;
-    margin : 0 auto;
-  }
-  .main {
-    grid-area: main;
-  }
-  .low {
-    grid-area: low;
-  }
-  .adv {
-    grid-area: adv;
-  }
-  .footer {
-    grid-area: footer;
-  }
-  .toc {
-    grid-area: toc;
-  }
-  .breadcrumbs {
-    grid-area : breadcrumbs;
-  }
-}
-/* blog table of content*/
-#blog_toc {
-  text-align:left;
-}
-#blog_toc ul {
-  @apply bg-base-200 rounded px-2 py-2;
-}
-
-#blog_toc li {
-  @apply my-1.5 ml-4;
-  font-size:1.6rem;
-}
-
-#blog_toc a:hover {
-  color: #4c74b9;
-}
-
-#blog_toc a:active {
-  color: #4c74b9;
-}
-
-#blog_toc .toc_h4 {
-  @apply pl-4;
-}
-
-#detail {
-  p,a,li {
+  p,ul,li,a,span,div{
     font-size:1.6rem;
   }
+  h2 {
+    @apply text-5xl;
+  }
   h3 {
-    font-size:2rem;
+    @apply text-4xl;
   }
   h4 {
-    font-size:1.8rem;
+    @apply text-3xl;
   }
-}
-
-@media (max-width: 767px) {
-  .wrap{
-    display:grid;
-    grid-template-areas:
-      "header"
-      "main"
-      "low"
-      "category"
-      "footer";
-    grid-gap:0;
-    > .header,.sidebar,.main,.sub,.adv,.footer {
-      width:100vw;
-      padding:1rem;
+  /* blog table of content*/
+  #blog_toc {
+    text-align: left;
+    @apply bg-base-300 rounded p-2;
+    ul {
+      @apply bg-base-200 p-1;
     }
-    pre,code{
-      overflow:scroll;
+    li {
+      @apply my-1.5 ml-4 text-2xl;
+    }
+    a {
+      @apply no-underline;
+      &:hover {
+        color: #4c74b9;
+      }
+      &:active {
+        color: #4c74b9;
+      }
+    }
+    .toc_h3 {
+      @apply text-success;
+      @apply py-2
+    }
+    .toc_h4 {
+      @apply pl-8 py-2;
     }
   }
 }

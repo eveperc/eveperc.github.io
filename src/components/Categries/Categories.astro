@@ -1,18 +1,17 @@
 ---
 import type { CategoryItem } from "@lib/newt";
+import TopIsrand from "@components/Elements/Isrand/TopIsrand.astro"
 import CategoriesList from "@components/Categries/Categories.List";
 type Props = {
   data: CategoryItem[];
   url: string;
+  category?: string;
 };
 
-let style = `category p-10 bg-base-100 shadow-2xl border-2 border-base-200 rounded-lg font-bold\n`;
-style += `md:mr-2`;
-
-const { data, url } = Astro.props;
+const { data, url,category } = Astro.props;
 ---
-<div class={style}>
-  <div class="grid grid-cols-4 gap-5">
-    <CategoriesList data={data} url={url} />
+<TopIsrand>
+  <div class="grid grid-cols-4 gap-2 items-center">
+    <CategoriesList data={data} url={url} category={category} />
   </div>
-</div>
+</TopIsrand>

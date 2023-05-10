@@ -1,16 +1,20 @@
+import DaisyUIColors from '@layouts/Colors'
+import DaisyUIBtn from '@components/Elements/Button/DaisyUIBtn'
+
 export type HeaderSearchProps = {
-  url : string;
+  url: string;
 }
 
-export default function({url}:HeaderSearchProps) {
+export default function({ url }: HeaderSearchProps) {
   return (
-    <div className="flex justify-end flex-1 px-2">
-      <div className="flex items-stretch">
-        <a href={`${url}/search`}>
-          <button className="btn btn-outline btn-info">Search</button>
-        </a>
-      </div>
-    </div>
+    <a href={`${url}/search`}>
+      <DaisyUIBtn
+        colors={DaisyUIColors.info.info}
+        outline={true}
+      >
+        Search
+      </DaisyUIBtn>
+    </a>
   )
 }
 

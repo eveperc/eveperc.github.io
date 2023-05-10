@@ -1,3 +1,5 @@
+import DaisyUIBtn from '@components/Elements/Button/DaisyUIBtn';
+import DaisyUIColors from '@layouts/Colors';
 export type CardButtonProps = {
   url: string;
   children: React.ReactNode;
@@ -5,12 +7,10 @@ export type CardButtonProps = {
 
 export default function({ children, url }: CardButtonProps) {
   return (
-    <div className="card-actions justify-end">
-      <a href={url}>
-        <button className="btn btn-primary">
-          {children}
-        </button>
-      </a>
-    </div>
+    <a href={url}>
+      <DaisyUIBtn colors={DaisyUIColors.primary.primary}>
+        {children}
+      </DaisyUIBtn>
+    </a>
   )
 }

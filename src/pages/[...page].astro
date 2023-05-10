@@ -1,13 +1,13 @@
 ---
+import type { GetStaticPathsOptions } from "astro";
+import { getContents } from "@lib/newtClient";
+import { categoryContent } from "@lib/category";
+import type { PostItem } from "@lib/newt";
+
+import ArticlesWrapper from "@components/ArticleCard/ArticlesWrapper.astro";
 import Article from "@components/ArticleCard/Article";
 import Pagination from "@components/Pagination/Pagination.astro";
 import Category from "@components/Categries/Categories.astro";
-
-import { getContents } from "@lib/newtClient";
-import { categoryContent } from "@lib/category";
-
-import type { GetStaticPathsOptions } from "astro";
-import type { PostItem } from "@lib/newt";
 
 import Layout from "@layouts/Layout.astro";
 import type { Page } from "@myTypes/index";
@@ -26,14 +26,17 @@ const data: PostItem[] = page.data;
 const url = import.meta.env.SITE_URL;
 ---
 
-<Layout id="top" title="NeoEveLog" description="NeoEveLog">
+<Layout title="NeoEveLog" description="NeoEveLog">
   <Category url={url} data={categoryContent} />
-  <div class="main grid justify-center lg:grid-cols-2 xl:grid-cols-3">
+  <ArticlesWrapper>
     {
       data.map((item,index) => (
         <Article key={index} article={item} />
       ))
     }
-  </div>
+  </ArticlesWrapper>
   <Pagination page={page} />
 </Layout>
+
+<style lang="scss">
+</style>

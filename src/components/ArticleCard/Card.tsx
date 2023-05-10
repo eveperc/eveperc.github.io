@@ -6,6 +6,8 @@ import CardImage, { CardImageProps } from "./Card.Image";
 import CardCategory, { CardCategoryProps } from "./Card.Category";
 import CardUpdatedAt, { CardUpdatedAtProps } from "./Card.UpdatedAt";
 import CardButton, { CardButtonProps } from "./Card.Button";
+
+import DaisyUIColors from "@layouts/Colors";
 type CardsProps = {
   children: ReactNode;
 }
@@ -19,7 +21,12 @@ type CardComposition = {
 }
 
 const Card: FC<CardsProps> & CardComposition = ({ children }) => {
-  let style = "card w-full md:w-96 bg-base-300 shadow-xl my-10";
+  const bg = `bg-${DaisyUIColors.base[300]} shadow-xl`
+  const width = "w-full"
+  const height = "h-auto"
+  const margin = "my-10"
+  const card = "card"
+  const style = `${bg} ${width} ${height} ${margin} ${card}`;
   return <div className={style}>{children}</div>
 }
 

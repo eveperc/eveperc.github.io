@@ -1,0 +1,27 @@
+---
+
+---
+
+<div id="wrapper">
+  <slot />
+</div>
+<style lang="scss">
+  #wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  // タブレットの場合
+  @media screen and (min-width: 768px) {
+    #wrapper {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  // PCの場合
+  @media screen and (min-width: 1024px) {
+    #wrapper {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+</style>

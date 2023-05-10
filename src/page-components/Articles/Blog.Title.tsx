@@ -4,6 +4,6 @@ export type BlogTitleProps = {
 
 export default function({ children }: BlogTitleProps) {
   return (
-    <h2 className="p-5 text-5xl font-bold">{children}</h2>
+    <h2 className="p-5 text-center font-bold">{children}</h2>
   )
 }

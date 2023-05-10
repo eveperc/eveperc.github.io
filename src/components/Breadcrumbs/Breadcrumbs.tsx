@@ -1,3 +1,5 @@
+import BreadcrumbsUnordered,{BreadcrumbsUnorderedProps} from './Breadcrumbs.Unordered';
+import BreadcrumbsList,{BreadcrumbsListProps} from './Breadcrumbs.List';
 type BreadcrumbsProps = {
   children: React.ReactNode
 }
@@ -7,24 +9,9 @@ type BreadcrumbsComposition = {
   li: React.FC<BreadcrumbsListProps>
 };
 
-type BreadcrumbsUnorderedProps = {
-  children: React.ReactNode;
-}
-type BreadcrumbsListProps = {
-  children: React.ReactNode;
-}
-
 export const Breadcrumbs:React.FC<BreadcrumbsProps> & BreadcrumbsComposition = ({children}) => {
-  return <div className="text-sm breadcrumbs">{children}</div>
+  return <div className="text-xl breadcrumbs">{children}</div>
 };
 
-const ul:React.FC<BreadcrumbsUnorderedProps> = ({children}) => {
-  return <ul>{children}</ul>
-};
-
-const li:React.FC<BreadcrumbsListProps> = ({children}) => {
-  return <li>{children}</li>
-}
-
-Breadcrumbs.ul = ul;
-Breadcrumbs.li = li;
+Breadcrumbs.ul = BreadcrumbsUnordered;
+Breadcrumbs.li = BreadcrumbsList;

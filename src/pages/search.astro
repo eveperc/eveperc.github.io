@@ -1,17 +1,17 @@
 ---
+import { getContents } from "@lib/newtClient";
 import Layout from "@layouts/Layout.astro";
 import SearchIsrand from "@page-components/Searches/SearchIsrand.astro";
 import Articles from "@page-components/Searches/Articles";
-import { getContents } from "@lib/newtClient";
-
+import ArticlesWrapper from "@components/ArticleCard/ArticlesWrapper.astro";
 const articles = await getContents();
 ---
 
-<Layout id="search" title="NeoEveLog" description="検索">
+<Layout title="NeoEveLog" description="検索">
   <SearchIsrand />
-  <div class="main grid justify-center lg:grid-cols-2 xl:grid-cols-3">
+  <ArticlesWrapper>
     <Articles articles={articles} client:only />
-  </div>
+  </ArticlesWrapper>
 </Layout>
 
 <style lang="scss">

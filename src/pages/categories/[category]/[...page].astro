@@ -3,6 +3,7 @@ import type { GetStaticPathsOptions } from "astro";
 import type { PostItem } from "@lib/newt";
 
 import Layout from "@layouts/Layout.astro";
+import ArticlesWrapper from "@components/ArticleCard/ArticlesWrapper.astro";
 import Article from "@components/ArticleCard/Article";
 import Pagination from "@components/Pagination/Pagination.astro";
 import Categories from "@components/Categries/Categories.astro";
@@ -33,12 +34,10 @@ const data: PostItem[] = page.data;
 const url = import.meta.env.SITE_URL;
 ---
 
-<Layout id="category" title="NeoEveLog" description={category ? category : ""}>
-  <Categories url={url} data={categoryContent} />
-  {
-    data.map((item,index) => (
-      <Article key={index} article={item} />
-    ))
-  }
+<Layout title="NeoEveLog" description={category ? category : ""}>
+  <Categories url={url} data={categoryContent} category={category} />
+  <ArticlesWrapper>
+    {data.map((item, index) => <Article key={index} article={item} />)}
+  </ArticlesWrapper>
   <Pagination page={page} />
 </Layout>

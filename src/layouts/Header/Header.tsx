@@ -1,5 +1,6 @@
 import HeaderHome, { HeaderHomeProps } from "./Header.Home";
 import HeaderSearch, { HeaderSearchProps } from "./Header.Search";
+import DaisyUIColors from '@layouts/Colors'
 
 type HeaderComposition = {
   Home: React.FC<HeaderHomeProps>;
@@ -11,8 +12,12 @@ type HeaderProps = {
 }
 
 const Header: React.FC<HeaderProps> & HeaderComposition = ({ children }) => {
+  const daisyUI = `navbar bg-${DaisyUIColors.base[300]}\n`
+  const display = 'flex justify-between\n';
+  const padding = 'p-10\n';
+  const style = daisyUI + display + padding;
   return (
-    <div className="navbar bg-base-300 p-10">
+    <div className={style}>
       {children}
     </div>
   )

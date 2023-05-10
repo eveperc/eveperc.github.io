@@ -18,7 +18,7 @@ type BlogComposition = {
 };
 
 const Blog: React.FC<BlogProps> & BlogComposition = ({ children }) => {
-  return <div className="main content">{children}</div>
+  return <div>{children}</div>
 }
 
 Blog.Image = BlogImage;

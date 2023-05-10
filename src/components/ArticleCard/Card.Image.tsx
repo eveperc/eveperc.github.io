@@ -1,11 +1,14 @@
 export type CardImageProps = {
   children: React.ReactNode;
+  url: string;
 }
 
-export default function({ children }: CardImageProps) {
+export default function({ children, url }: CardImageProps) {
   return (
-    <figure className="bg-white">
-      {children}
-    </figure>
+    <a href={url} className="bg-white rounded-2xl rounded-b-none">
+      <figure className="h-52">
+        {children}
+      </figure>
+    </a>
   )
 }

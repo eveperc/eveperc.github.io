@@ -27,25 +27,26 @@ type ColorKeys = keyof typeof Colors;
 type DescriptionKeys = keyof typeof description;
 type NumberDescKeys = keyof typeof numberDesc;
 
-const combinedKeys: Record<ColorKeys, Record<DescriptionKeys | NumberDescKeys, string>> = Object.keys(Colors).reduce((acc, colorKey) => {
-  acc[colorKey as ColorKeys] = Object.keys(description).reduce((descAcc, descKey) => {
-    descAcc[descKey as DescriptionKeys] = match([colorKey, descKey])
-      .with([Colors.base, P.string], () => "")
-      .with([Colors.info, description.focus], () => "")
-      .with([Colors.success, description.focus], () => "")
-      .with([Colors.warning, description.focus], () => "")
-      .with([Colors.error, description.focus], () => "")
-      .otherwise(() => `${Colors[colorKey as ColorKeys]}-${description[descKey as DescriptionKeys]}`);
-    return descAcc;
-  }, {} as Record<DescriptionKeys | NumberDescKeys, string>);
+type CombinedKeys = DescriptionKeys | NumberDescKeys | ColorKeys;
 
+const initCombinedKeys = (colorKey: ColorKeys): Record<CombinedKeys, string> => {
+  const record: Partial<Record<CombinedKeys, string>> = {};
+  Object.keys(description).forEach((descKey) => {
+    record[descKey as DescriptionKeys] = `${Colors[colorKey as ColorKeys]}-${description[descKey as DescriptionKeys]}`;
+  });
   if (colorKey === Colors.base) {
     Object.keys(numberDesc).forEach((numberKey) => {
-      acc[colorKey as ColorKeys][numberKey as NumberDescKeys] = `${Colors.base}-${numberDesc[numberKey as NumberDescKeys]}`;
+      record[numberKey as NumberDescKeys] = `${Colors.base}-${numberDesc[numberKey as NumberDescKeys]}`;
     });
   }
+  record[colorKey as ColorKeys] = Colors[colorKey as ColorKeys];
+  return record as Record<CombinedKeys, string>;
+};
 
+const DaisyUIColors: Record<ColorKeys, Record<CombinedKeys, string>> = Object.keys(Colors).reduce((acc, colorKey) => {
+  acc[colorKey as ColorKeys] = initCombinedKeys(colorKey as ColorKeys);
   return acc;
-}, {} as Record<ColorKeys, Record<DescriptionKeys | NumberDescKeys, string>>);
+}, {} as Record<ColorKeys, Record<CombinedKeys, string>>);
 
-export default combinedKeys;
+export type DaisyUIColorsType = typeof DaisyUIColors;
+export default DaisyUIColors;

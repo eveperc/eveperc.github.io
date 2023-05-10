@@ -1,23 +1,31 @@
 import parse, { HTMLReactParserOptions, domToReact, Element } from 'html-react-parser';
-
+import DaisyUIColors from '@layouts/Colors';
 export type BlogBodyProps = {
   content: string;
 };
 
 const htmlParser = (html: string) => {
-  let h2 = 0;
+  let anker = 0;
   const options: HTMLReactParserOptions = {
     replace: domNode => {
       if (domNode instanceof Element && domNode.attribs) {
         if (!domNode) {
           return;
         }
-        if (domNode.name === 'h2') {
-          h2++;
+        if (domNode.name === 'h3') {
+          anker++;
           return (
-            <h2 id={`anker${h2}`}>
+            <h3 id={`anker${anker}`} className="body__title">
               {domToReact(domNode.children, options)}
-            </h2>
+            </h3>
+          );
+        }
+        if (domNode.name === 'h4') {
+          anker++;
+          return (
+            <h4 id={`anker${anker}`} className="body__sub-title">
+              {domToReact(domNode.children, options)}
+            </h4>
           );
         }
       }
@@ -27,9 +35,8 @@ const htmlParser = (html: string) => {
 }
 export default function({ content }: BlogBodyProps) {
   const html = htmlParser(content)
-
   return (
-    <div className="html-left">
+    <div className={`html-left p-2`}>
       {html}
     </div>
   );

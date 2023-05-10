@@ -7,7 +7,6 @@ import "@styles/global.scss";
 export type Props = {
   title: string;
   description: string;
-  id: string;
 };
 
 const { title, description } = Astro.props;
@@ -19,7 +18,17 @@ const url = import.meta.env.SITE_URL;
   <Head title={title} description={description} />
   <body>
     <Header url={url} />
-    <slot />
+    <div class="inner__wrap">
+      <slot />
+    </div>
     <Footer />
   </body>
 </html>
+
+<style lang="scss">
+  .inner__wrap {
+    display:grid;
+    gap: 2rem;
+    margin: 2rem;
+  }
+</style>
