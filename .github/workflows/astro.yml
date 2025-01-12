@@ -18,12 +18,22 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Install, build, and upload your site
         uses: withastro/action@v1
         with:
-          # Astroの最新バージョンに合わせてNode.jsを20に更新
           node-version: 20
+          path: .
+          artifact-name: github-pages
           # package-managerは自動検出されるため、必要な場合のみ指定
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
 
   deploy:
     needs: build
