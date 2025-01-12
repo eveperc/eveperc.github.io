@@ -1,9 +1,9 @@
 ---
 
-import ArticlesWrapper from "@layouts/PostWrapper.astro";
+import ArticlesWrapper from "@features/PostWrapper.astro";
 
 import Layout from "@layouts/Layout.astro";
-import PostCard from "@features/PostCard"
+import PostCard from "@features/PostCard.astro"
 
 const allPosts = await Astro.glob('../pages/posts/*.md');
 const { page } = Astro.params;

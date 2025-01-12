@@ -1,0 +1,33 @@
+---
+import type {MarkdownInstance} from "astro";
+import Card from "@components/Card.astro"
+import type { CollectionEntry } from "astro:content";
+import logo from "../../public/logo.jpg";
+
+interface Props {
+  post: CollectionEntry<'blog'> | MarkdownInstance<Record<string, any>>;
+}
+
+const { post } = Astro.props;
+const isNew = (date: string) => {
+  const postDate = new Date(date);
+  const now = new Date();
+  const diffTime = Math.abs(now.getTime() - postDate.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays <= 7;
+};
+---
+
+<a
+  href={post.url}
+  class="block transition-transform hover:-translate-y-1"
+>
+  <Card
+    title={post.frontmatter.title}
+    description={post.frontmatter.description}
+    tags={post.frontmatter.tags}
+    image={post.frontmatter.image?.url ?? logo}
+    isNew={isNew(post.frontmatter.pubDate)}
+    pubDate={post.frontmatter.pubDate}
+  />
+</a>

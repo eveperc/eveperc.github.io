@@ -1,30 +1,33 @@
 ---
 import type { MarkdownLayoutProps } from 'astro';
 import Layout from './Layout.astro';
-
 type Props = MarkdownLayoutProps<{
   title: string;
   author: string;
   description: string;
-  date: string;
+  pubDate: string;
 }>;
-
 const { frontmatter, url } = Astro.props;
 ---
-
 <Layout title={frontmatter.title} description={frontmatter.description}>
-  <article class="prose prose-lg mx-auto">
-    <header class="mb-8">
-      <h1 class="text-3xl font-bold">{frontmatter.title}</h1>
-      <div class="text-gray-600">
-        <time datetime={frontmatter.date}>
-          {new Date(frontmatter.date).toLocaleDateString()}
+  <article class="container mx-auto px-4 py-8">
+    <header class="max-w-3xl mx-auto mb-8">
+      <h1 class="text-4xl font-bold mb-4">{frontmatter.title}</h1>
+      <div class="text-base-content/70">
+        <time datetime={frontmatter.pubDate}>
+          {new Date(frontmatter.pubDate).toLocaleDateString('ja-JP', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
         </time>
         <span class="mx-2">•</span>
         <span>{frontmatter.author}</span>
       </div>
     </header>
 
-    <slot />
+    <div class="prose prose-lg dark:prose-invert max-w-3xl mx-auto">
+      <slot />
+    </div>
   </article>
 </Layout>

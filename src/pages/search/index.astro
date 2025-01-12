@@ -1,11 +1,11 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import ArticlesWrapper from "@layouts/PostWrapper.astro";
+import SearchPost from "@features/SearchPost"
+
+const posts = await Astro.glob('../posts/*.md')
 ---
 
 <Layout title="NeoEveLog" description="検索">
-  <ArticlesWrapper>
-  </ArticlesWrapper>
 </Layout>
 
 <style lang="scss">

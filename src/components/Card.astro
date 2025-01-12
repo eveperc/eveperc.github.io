@@ -1,0 +1,68 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate:string;
+  tags?: string[];
+  image?: ImageMetadata;
+  isNew?: boolean;
+}
+
+const {
+  title,
+  description,
+  pubDate,
+  tags = [],
+  image,
+  isNew = false
+} = Astro.props;
+
+// 日付をフォーマット
+const formattedDate = new Date(pubDate).toLocaleDateString('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// 外部画像用のデフォルトサイズ
+const DEFAULT_WIDTH = 1000;
+const DEFAULT_HEIGHT = 500;
+// デバッグ用に内容を確認
+---
+
+<div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
+  {image && (
+    <figure>
+      <Picture
+        src={image}
+        formats={['avif', 'webp', 'jpg']}
+        width={image.width ?? DEFAULT_WIDTH}
+        height={image.height ?? DEFAULT_HEIGHT}
+        alt={title}
+        class="bg-neutral-content"
+      />
+    </figure>
+  )}
+  <div class="card-body">
+    <h2 class="card-title">
+      {title}
+      {isNew && <div class="badge badge-secondary">NEW</div>}
+    </h2>
+    <div class="text-sm text-gray-500 mb-2">
+      <time datetime={pubDate}>{formattedDate}</time>
+    </div>
+    <p class="text-base-content/70">{description}</p>
+    {tags && tags.length > 0 && (
+      <div class="card-actions justify-end">
+        {tags.map(tag => (
+        <div class="badge badge-outline hover:badge-primary">
+            {typeof tag === 'object' ? JSON.stringify(tag) : tag}
+        </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div>

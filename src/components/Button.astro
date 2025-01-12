@@ -1,3 +1,4 @@
+---
 import { match } from 'ts-pattern';
 
 type ButtonVariant =
@@ -9,13 +10,14 @@ type ButtonVariant =
   | 'success'
   | 'warning';
 
-type ButtonProps = {
-  children: React.ReactNode;
+interface Props  {
+  label:string;
   variant: ButtonVariant;
   outline?: boolean;
 };
 
-export default function Button({ children, variant, outline }: ButtonProps) {
+const {label,variant,outline} = Astro.props;
+function style( variant:ButtonVariant, outline?:boolean) {
   // baseVariant に対応する DaisyUI のクラス名を決定
   const daisyuiVariantClass = match(variant)
     .with('primary', () => 'primary')
@@ -31,11 +33,9 @@ export default function Button({ children, variant, outline }: ButtonProps) {
   const outlineClass = outline ? 'btn-outline' : '';
 
   // クラス名を結合
-  const style = `font-black text-lg btn ${outlineClass} btn-${daisyuiVariantClass}`;
-
-  return (
-    <button className={style}>
-      {children}
-    </button>
-  );
+  return `font-black text-lg btn ${outlineClass} btn-${daisyuiVariantClass}`;
 }
+---
+<button class={style(variant,outline)}>
+  {label}
+</button>

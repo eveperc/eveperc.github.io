@@ -1,16 +1,16 @@
 ---
-import Navbar from "@components/Navbar"
-import Button from "@components/Button"
+import Navbar from "@components/Navbar.astro"
+import Button from "@components/Button.astro"
+import Logo from "../../public/logo.svg"
 ---
 <Navbar>
   <a href="/">
-    <Button variant="primary">
-      Home
-    </Button>
+    <Logo
+      class="w-[200px] md:w-[250px] lg:w-[300px] dark:invert"
+      aria-label="NeoEveLog"
+    />
   </a>
   <a href="/search">
-    <Button variant="info" outline={true}>
-      Search
-    </Button>
+    <Button variant="info" outline={true} label="Search" />
   </a>
 </Navbar>
