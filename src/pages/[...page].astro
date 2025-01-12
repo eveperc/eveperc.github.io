@@ -3,7 +3,7 @@
 import ArticlesWrapper from "@layouts/PostWrapper.astro";
 
 import Layout from "@layouts/Layout.astro";
-import Card from "@features/PostCard"
+import PostCard from "@features/PostCard"
 
 const allPosts = await Astro.glob('../pages/posts/*.md');
 const { page } = Astro.params;
@@ -37,7 +37,7 @@ export async function getStaticPaths() {
   <ArticlesWrapper>
     {
       posts.map((item,index) => (
-      <Card post={item} />
+      <PostCard post={item} />
       ))
     }
   </ArticlesWrapper>
