@@ -1,19 +1,30 @@
 ---
 import type { MarkdownLayoutProps } from 'astro';
 import Layout from './Layout.astro';
+
 type Props = MarkdownLayoutProps<{
-  // フロントマターのpropsをここで定義します
   title: string;
   author: string;
-  description : string;
+  description: string;
   date: string;
 }>;
 
-// `frontmatter`や`url`などのMarkdownのレイアウトプロパティに
-// 型安全にアクセスできます
 const { frontmatter, url } = Astro.props;
 ---
 
-<Layout title="NeoEveLog" description="NeoEveLog">
-  <slot/>
+<Layout title={frontmatter.title} description={frontmatter.description}>
+  <article class="prose prose-lg mx-auto">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold">{frontmatter.title}</h1>
+      <div class="text-gray-600">
+        <time datetime={frontmatter.date}>
+          {new Date(frontmatter.date).toLocaleDateString()}
+        </time>
+        <span class="mx-2">•</span>
+        <span>{frontmatter.author}</span>
+      </div>
+    </header>
+
+    <slot />
+  </article>
 </Layout>
