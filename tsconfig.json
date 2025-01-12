@@ -16,7 +16,7 @@
       "@stores/*": ["./src/stores/*"],
       "@styles/*": ["./src/styles/*"],
       "@myTypes/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }

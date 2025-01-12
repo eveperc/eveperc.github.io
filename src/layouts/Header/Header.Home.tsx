@@ -1,5 +1,4 @@
-import DaisyUIColors from '@layouts/Colors'
-import DaisyUIBtn from '@components/Elements/Button/DaisyUIBtn'
+import Btn from '@components/Button'
 
 export type HeaderHomeProps = {
 }
@@ -7,7 +6,7 @@ export type HeaderHomeProps = {
 export default function({ }: HeaderHomeProps) {
   return (
     <a href="/">
-      <DaisyUIBtn colors='btn-primary'>Home</DaisyUIBtn>
+      <Btn variant='primary'>Home</Btn>
     </a>
   )
 }

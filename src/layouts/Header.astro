@@ -1,0 +1,22 @@
+---
+import Navbar from "@components/Navbar"
+import Button from "@components/Button"
+
+type Props = {
+  url: string;
+};
+
+const { url } = Astro.props;
+---
+
+<Navbar>
+  <a href="/">
+    <Button variant="primary">
+      Home
+    </Button>
+  </a>
+  <a href={`${url}/search`}>
+    <Button variant="info" outline={true}>
+      Search
+    </Button>
+</Navbar>

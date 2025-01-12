@@ -3,8 +3,6 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import partytown from "@astrojs/partytown";
 
-import image from "@astrojs/image";
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://eveperc.github.io',
@@ -13,5 +11,5 @@ export default defineConfig({
     config: {
       forward: ["dataLayer.push"]
     }
-  }), image()]
+  })]
 });

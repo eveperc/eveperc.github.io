@@ -4,13 +4,22 @@ import { getContents } from "@lib/newtClient";
 import { categoryContent } from "@lib/category";
 import type { PostItem } from "@lib/newt";
 
-import ArticlesWrapper from "@components/ArticleCard/ArticlesWrapper.astro";
+import ArticlesWrapper from "@layouts/PostWrapper.astro";
 import Article from "@components/ArticleCard/Article";
 import Pagination from "@components/Pagination/Pagination.astro";
-import Category from "@components/Categries/Categories.astro";
+import Category from "@layouts/Category.astro";
 
 import Layout from "@layouts/Layout.astro";
+import Card from "@features/PostCard"
 import type { Page } from "@myTypes/index";
+
+const allPosts = await Astro.glob('../pages/posts/*.md');
+const { page } = Astro.params;
+const pageNumber = page ? parseInt(page) : 1;
+const pageSize = 10;
+const startIndex = (pageNumber - 1) * pageSize;
+const endIndex = startIndex + pageSize;
+const posts = allPosts.slice(startIndex, endIndex);
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const postsContents = await getContents();
@@ -21,8 +30,6 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 type Props = {
   page: Page;
 };
-const { page } = Astro.props;
-const data: PostItem[] = page.data;
 const url = import.meta.env.SITE_URL;
 ---
 
@@ -30,12 +37,11 @@ const url = import.meta.env.SITE_URL;
   <Category url={url} data={categoryContent} />
   <ArticlesWrapper>
     {
-      data.map((item,index) => (
-        <Article article={item} />
+      posts.map((item,index) => (
+      <Card post={item} />
       ))
     }
   </ArticlesWrapper>
-  <Pagination page={page} />
 </Layout>
 
 <style lang="scss">
