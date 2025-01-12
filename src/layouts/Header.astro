@@ -1,12 +1,6 @@
 ---
 import Navbar from "@components/Navbar"
 import Button from "@components/Button"
-
-type Props = {
-  url: string;
-};
-
-const { url } = Astro.props;
 ---
 
 <Navbar>
@@ -15,7 +9,7 @@ const { url } = Astro.props;
       Home
     </Button>
   </a>
-  <a href={`${url}/search`}>
+  <a href={`/search`}>
     <Button variant="info" outline={true}>
       Search
     </Button>

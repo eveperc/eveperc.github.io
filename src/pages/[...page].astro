@@ -1,17 +1,9 @@
 ---
-import type { GetStaticPathsOptions } from "astro";
-import { getContents } from "@lib/newtClient";
-import { categoryContent } from "@lib/category";
-import type { PostItem } from "@lib/newt";
 
 import ArticlesWrapper from "@layouts/PostWrapper.astro";
-import Article from "@components/ArticleCard/Article";
-import Pagination from "@components/Pagination/Pagination.astro";
-import Category from "@layouts/Category.astro";
 
 import Layout from "@layouts/Layout.astro";
 import Card from "@features/PostCard"
-import type { Page } from "@myTypes/index";
 
 const allPosts = await Astro.glob('../pages/posts/*.md');
 const { page } = Astro.params;
@@ -21,20 +13,27 @@ const startIndex = (pageNumber - 1) * pageSize;
 const endIndex = startIndex + pageSize;
 const posts = allPosts.slice(startIndex, endIndex);
 
-export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const postsContents = await getContents();
-  return paginate(postsContents, {
-    pageSize: 9,
-  });
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob('../pages/posts/*.md');
+  const pageSize = 10;
+  const totalPages = Math.ceil(allPosts.length / pageSize);
+
+  return Array.from({ length: totalPages }, (_, i) => {
+    if (i === 0) {
+      return [
+        { params: { page: undefined } },  // ルートパス / 用
+        { params: { page: '1' } }         // /1 用
+      ];
+    }
+    return {
+      params: { page: (i + 1).toString() }
+    };
+  }).flat();
 }
-type Props = {
-  page: Page;
-};
-const url = import.meta.env.SITE_URL;
+
 ---
 
 <Layout title="NeoEveLog" description="NeoEveLog">
-  <Category url={url} data={categoryContent} />
   <ArticlesWrapper>
     {
       posts.map((item,index) => (
