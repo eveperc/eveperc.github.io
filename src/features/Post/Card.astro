@@ -1,8 +1,8 @@
 ---
 import type {MarkdownInstance} from "astro";
-import Card from "@components/Card.astro"
+import Card from "@components/Card/Card.astro"
 import type { CollectionEntry } from "astro:content";
-import logo from "../../public/logo.jpg";
+import logo from "@public/logo.jpg";
 
 interface Props {
   post: CollectionEntry<'blog'> | MarkdownInstance<Record<string, any>>;

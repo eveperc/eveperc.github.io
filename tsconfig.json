@@ -8,15 +8,13 @@
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@features/*": ["./src/features/*"],
-      "@hooks/*": ["./src/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@lib/*": ["./src/lib/*"],
-      "@page-components/*": ["./src/page-components/*"],
       "@pages/*": ["./src/pages/*"],
-      "@stores/*": ["./src/stores/*"],
       "@styles/*": ["./src/styles/*"],
-      "@myTypes/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@types/*": ["./src/types/*"],
+      "@public/*": ["./public/*"]
     }
   }
 }

@@ -1,0 +1,30 @@
+---
+import Layout from '@layouts/Layout/Index.astro';
+import { TagList } from '@features/TagList/index';
+import type { Post } from "@types/Post";
+
+const postEntries = import.meta.glob<Post>('../posts/*.md', { eager: true });
+const posts = Object.values(postEntries).map(entry => entry);
+
+const tags = posts.reduce((acc: Record<string, number>, post) => {
+  const postTags: string[] = post.frontmatter.tags || [];
+  postTags.forEach((tag: string) => {
+    acc[tag] = (acc[tag] || 0) + 1;
+  });
+  return acc;
+}, {});
+
+const tagList = Object.entries(tags)
+  .map(([name, count]) => ({
+    name,
+    count
+  }))
+  .sort((a, b) => b.count - a.count);
+---
+
+<Layout title="タグ一覧" description="記事のタグ一覧">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">タグ一覧</h1>
+    <TagList tags={tagList} client:load />
+  </main>
+</Layout>

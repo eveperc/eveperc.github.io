@@ -1,19 +1,34 @@
 ---
 import type { MarkdownLayoutProps } from 'astro';
-import Layout from './Layout.astro';
+import Layout from '@layouts/Layout/Index.astro';
 type Props = MarkdownLayoutProps<{
   title: string;
   author: string;
   description: string;
   pubDate: string;
+  tags: string[];
 }>;
-const { frontmatter, url } = Astro.props;
+import Breadcrumbs from '@components/Breadcrumbs/Index';
+import type { BreadcrumbItem } from '@components/Breadcrumbs/types';
+
+const { frontmatter, url} = Astro.props;
+const breadcrumbItems: BreadcrumbItem[] = [
+  { label: 'Home', href: '/', icon: 'home' },
+  { label: frontmatter.title, icon: 'add' }
+];
 ---
 <Layout title={frontmatter.title} description={frontmatter.description}>
+<Breadcrumbs
+    items={breadcrumbItems}
+    variant="withBackground"
+    className="mb-4"
+    client:load
+  />
   <article class="container mx-auto px-4 py-8">
     <header class="max-w-3xl mx-auto mb-8">
       <h1 class="text-4xl font-bold mb-4">{frontmatter.title}</h1>
       <div class="text-base-content/70">
+        <span>作成日：</span>
         <time datetime={frontmatter.pubDate}>
           {new Date(frontmatter.pubDate).toLocaleDateString('ja-JP', {
             year: 'numeric',
@@ -21,8 +36,17 @@ const { frontmatter, url } = Astro.props;
             day: 'numeric'
           })}
         </time>
-        <span class="mx-2">•</span>
-        <span>{frontmatter.author}</span>
+        {frontmatter.tags && frontmatter.tags.length > 0 && (
+          <div class="card-actions">
+            {frontmatter.tags.map(tag => (
+            <span
+                class="badge badge-outline"
+              >
+                {typeof tag === 'object' ? JSON.stringify(tag) : tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </header>
 
