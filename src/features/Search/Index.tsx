@@ -9,7 +9,7 @@ interface SearchProps {
   initialQuery?: string;
 }
 
-export const Search: React.FC<SearchProps> = ({ posts, initialQuery = '' }) => {
+export const SearchPosts: React.FC<SearchProps> = ({ posts, initialQuery = '' }) => {
   const [query, setQuery] = useState(initialQuery);
 
   const filteredPosts = useMemo(() => {
@@ -55,4 +55,4 @@ export const Search: React.FC<SearchProps> = ({ posts, initialQuery = '' }) => {
   );
 };
 
-export default Search;
+export default SearchPosts;

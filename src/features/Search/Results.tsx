@@ -1,5 +1,5 @@
 import type { Post } from "@/types/Post";
-import Card from "@components/Card.astro";
+import Card from "@/components/Card/Card";
 
 interface SearchResultsProps {
   query: string;

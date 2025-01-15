@@ -4,6 +4,8 @@ import react from '@astrojs/react';
 import daisyui from 'daisyui';
 import path from 'path';
 
+import db from '@astrojs/db';
+
 export default defineConfig({
   site: 'https://eveperc.github.io',
   experimental: {
@@ -21,24 +23,21 @@ export default defineConfig({
       },
     },
   },
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-      config: {
-        content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-        theme: {
-          extend: {},
-        },
-        plugins: [daisyui],
-        daisyui: {
-          themes: ["light", "dark"],
-          darkTheme: "dark",
-          base: true,
-          styled: true,
-          utils: true,
-        }
+  integrations: [tailwind({
+    applyBaseStyles: false,
+    config: {
+      content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+      theme: {
+        extend: {},
+      },
+      plugins: [daisyui],
+      daisyui: {
+        themes: ["light", "dark"],
+        darkTheme: "dark",
+        base: true,
+        styled: true,
+        utils: true,
       }
-    }),
-    react()
-  ]
+    }
+  }), react(), db()]
 });
