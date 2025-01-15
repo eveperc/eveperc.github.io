@@ -1,7 +1,7 @@
 ---
 import Layout from '@layouts/Layout/Index.astro';
 import { TagList } from '@features/TagList/index';
-import type { Post } from "@types/Post";
+import type { Post } from '@/types/Post';
 
 const postEntries = import.meta.glob<Post>('../posts/*.md', { eager: true });
 const posts = Object.values(postEntries).map(entry => entry);
