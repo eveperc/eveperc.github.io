@@ -5,7 +5,7 @@ pubDate: 2025-01-12
 description: '2025年の自分へ'
 author: 'けろんちゅ'
 image:
-    url: 'https://docs.astro.build/assets/full-logo-light.png'
+    url: '/logo.jpg'
     alt: 'Astroのロゴ。'
 tags: ["振り返り"]
 ---

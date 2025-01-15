@@ -1,7 +1,7 @@
 ---
 import Layout from '@layouts/Layout/Index.astro';
-import Card from '@components/Card';
-import type {Post} from "@types/Post"
+import Card from '@features/Post/Card.astro';
+import type {Post} from "@/types/Post"
 import type { GetStaticPaths } from 'astro';
 
 
@@ -41,14 +41,7 @@ const { posts } = Astro.props;
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {posts.map(post => (
-        <Card
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-          pubDate={post.frontmatter.pubDate}
-          url={post.url}
-          tags={post.frontmatter.tags}
-          image={post.frontmatter.image}
-        />
+        <Card post={post} />
       ))}
     </div>
   </main>
