@@ -7,7 +7,7 @@ interface TagListProps {
   }[];
 }
 
-export const TagList: React.FC<TagListProps> = ({ tags }) => {
+const TagList: React.FC<TagListProps> = ({ tags }) => {
   return (
     <div className="flex flex-wrap gap-3">
       {tags.map(({ name, count }) => (
@@ -23,3 +23,5 @@ export const TagList: React.FC<TagListProps> = ({ tags }) => {
     </div >
   );
 };
+
+export default TagList;
