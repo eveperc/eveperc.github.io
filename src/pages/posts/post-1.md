@@ -19,7 +19,7 @@ tags: ["振り返り"]
 振り返りの手法は、<a class="link link-info" href="https://qiita.com/viva_tweet_x/items/7e279f41f4388d9162ef">Fun/Done/Learn</a>を使ってみました。
 <br>最初はKPTで書き始めたんですが、どうしても課題に目が行きがちで。それなら楽しかったことや頑張ったことをちゃんと残せる方法にしようと思い、Fun/Done/Learn で整理してみることにしました。
 
-<img src="../../../public/post/post-1.png">
+![Fun/Done/Learn ベン図](../../../public/post/post-1.png)
 
 ## 開発・技術面での成長
 今年は技術的な成長を実感できた年でした。
