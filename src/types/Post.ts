@@ -1,19 +1,12 @@
-export interface PostFrontmatter {
-  layout: string;
+export interface Post {
   title: string;
-  pubDate: string;
   description: string;
-  author: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  tags: string[];
+  draft: boolean;
   image?: {
     url: string;
     alt: string;
   };
-  tags?: string[];
-}
-
-export interface Post {
-  frontmatter: PostFrontmatter;
-  file: string;
-  url: string;
-  rowContent: string;
 }

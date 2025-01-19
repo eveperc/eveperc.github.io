@@ -2,8 +2,9 @@
 import PostWrapper from "@layouts/postWrapper/index.astro";
 import Layout from "@layouts/Layout/Index.astro";
 import PostCard from "@adapter/post/index.astro";
+import type {Post} from "@/types/post";
 
-const allPosts = await Astro.glob('../pages/posts/*.md');
+const allPosts = await Astro.glob<Post>('../pages/posts/*.md');
 const { page } = Astro.params;
 const pageNumber = page ? parseInt(page) : 1;
 const pageSize = 10;
@@ -34,7 +35,7 @@ export async function getStaticPaths() {
 <Layout title="NeoEveLog" description="NeoEveLog">
   <PostWrapper>
     {
-      posts.map((item,index) => (
+      posts.map((item) => (
       <PostCard post={item} />
       ))
     }
