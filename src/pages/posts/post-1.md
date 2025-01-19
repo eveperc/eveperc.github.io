@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: ../../layouts/post.astro
 title: '2024年の振り返り'
 pubDate: 2025-01-12
 description: '2025年の自分へ'
