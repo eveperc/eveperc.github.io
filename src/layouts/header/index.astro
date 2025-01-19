@@ -1,0 +1,16 @@
+---
+import Navbar from "@components/navbar/index"
+import Logo from "@public/logo.svg"
+import Button from "@components/button/index"
+---
+<Navbar>
+  <a href="/">
+    <Logo
+      class="w-[200px] md:w-[250px] lg:w-[300px] dark:invert"
+      aria-label="NeoEveLog"
+    />
+  </a>
+  <a href="/search">
+    <Button variant="info" outline={true} label="Search" />
+  </a>
+</Navbar>

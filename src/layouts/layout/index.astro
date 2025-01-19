@@ -1,0 +1,51 @@
+---
+import Header from "@layouts/header/index.astro";
+import Footer from "@layouts/footer/index.astro";
+import "@styles/global.scss";
+
+export type Props = {
+  title: string;
+  description: string;
+};
+
+const { title, description } = Astro.props;
+const url = import.meta.env.SITE_URL;
+---
+
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark">
+  <head>
+    <!-- <script -->
+    <!--   type="text/partytown" -->
+    <!--   src="https://www.googletagmanager.com/gtag/js?id=G-GQRBPJDFRQ" -->
+    <!-- ></script> -->
+    <!-- <script type="text/partytown"> -->
+    <!--   window.dataLayer = window.dataLayer || []; -->
+    <!--   function gtag() { -->
+    <!--     dataLayer.push(arguments); -->
+    <!--   } -->
+    <!--   gtag("js", new Date()); -->
+    <!--   gtag("config", "G-GQRBPJDFRQ"); -->
+    <!-- </script> -->
+    <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <Header />
+    <div class="inner__wrap">
+      <slot />
+    </div>
+    <Footer />
+  </body>
+</html>
+
+<style lang="scss">
+  .inner__wrap {
+    display:grid;
+    gap: 2rem;
+    margin: 2rem;
+  }
+</style>
