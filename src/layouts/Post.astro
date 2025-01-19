@@ -1,6 +1,6 @@
 ---
 import type { MarkdownLayoutProps } from 'astro';
-import Layout from '@layouts/Layout/Index.astro';
+import Layout from '@layouts/layout/index.astro';
 type Props = MarkdownLayoutProps<{
   title: string;
   author: string;
@@ -8,8 +8,8 @@ type Props = MarkdownLayoutProps<{
   pubDate: string;
   tags: string[];
 }>;
-import Breadcrumbs from '@components/Breadcrumbs/Index';
-import type { BreadcrumbItem } from '@components/Breadcrumbs/types';
+import Breadcrumbs from '@components/breadcrumbs/index';
+import type { BreadcrumbItem } from '@components/breadcrumbs/types';
 
 const { frontmatter, url} = Astro.props;
 const breadcrumbItems: BreadcrumbItem[] = [
