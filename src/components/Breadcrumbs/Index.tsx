@@ -1,6 +1,6 @@
 import React from 'react';
 import { match, P } from 'ts-pattern';
-import { Icons } from './Icons';
+import Icons from './icons';
 import type { IconType, BreadcrumbItem, BreadcrumbVariant } from './types';
 
 interface BreadcrumbsProps {

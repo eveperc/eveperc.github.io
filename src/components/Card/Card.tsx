@@ -1,23 +1,19 @@
-// src/components/Card.tsx
-import React from 'react';
-import { Picture } from 'astro:assets';
+import type { FC } from 'react';
 import type { ImageMetadata } from 'astro';
 
-interface CardProps {
+interface Props {
   title: string;
   description: string;
   pubDate: string;
-  url: string;
   tags?: string[];
   image?: ImageMetadata;
   isNew?: boolean;
 }
 
-export const Card: React.FC<CardProps> = ({
+const Card: FC<Props> = ({
   title,
   description,
   pubDate,
-  url,
   tags = [],
   image,
   isNew = false
@@ -28,40 +24,46 @@ export const Card: React.FC<CardProps> = ({
     day: 'numeric'
   });
 
-  return (
-    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
-      {image && (
-        <figure>
+  const IMAGE_SIZE = 120;
 
+  return (
+    <div className="card card-side bg-neutral shadow-xl">
+      {image && (
+        <figure className="flex items-center min-w-[160px] p-4">
+          <div className="w-[120px] h-[120px] shrink-0">
+            <img
+              src={image.src}
+              width={IMAGE_SIZE}
+              height={IMAGE_SIZE}
+              alt={title}
+              className="w-full h-full object-cover bg-neutral-content rounded-lg"
+            />
+          </div>
         </figure>
       )}
-      <div className="card-body">
+      <div className="card-body py-4 pr-4">
         <h2 className="card-title">
-          <a href={url} className="hover:text-primary">
-            {title}
-          </a>
-          {isNew && <div className="badge badge-secondary">NEW</div>}
+          {title}
+          {isNew && <div className="badge badge-secondary badge-sm">NEW</div>}
         </h2>
-        <div className="text-sm text-gray-500 mb-2">
+        <div className="text-sm text-gray-500">
           <time dateTime={pubDate}>{formattedDate}</time>
         </div>
         <p className="text-base-content/70">{description}</p>
         {tags && tags.length > 0 && (
           <div className="card-actions justify-end">
-            {tags.map(tag => (
-              <a
-
-                key={tag}
-                href={`/tags/${tag}`}
-                className="badge badge-outline hover:badge-primary"
+            {tags.map((tag, index) => (
+              <div
+                key={index}
+                className="badge badge-outline badge-sm hover:badge-primary"
               >
                 {typeof tag === 'object' ? JSON.stringify(tag) : tag}
-              </a>
+              </div>
             ))}
           </div>
         )}
       </div>
-    </div >
+    </div>
   );
 };
 

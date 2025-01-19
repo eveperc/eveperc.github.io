@@ -20,6 +20,7 @@ export default defineConfig({
         '@features': path.resolve('./src/features'),
         '@types': path.resolve('./src/types'),
         '@public': path.resolve('./public'),
+        '@adapter': path.resolve('./src/adapter'),
       },
     },
   },

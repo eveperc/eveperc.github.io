@@ -1,6 +1,6 @@
 ---
 import type {MarkdownInstance} from "astro";
-import Card from "@/components/Card/Card.astro";
+import Card from "@/components/card/index"
 import type { CollectionEntry } from "astro:content";
 import logo from "@public/logo.jpg";
 
@@ -17,17 +17,12 @@ const isNew = (date: string) => {
   return diffDays <= 7;
 };
 ---
-
-<a
-  href={post.url}
-  class="block transition-transform hover:-translate-y-1"
->
-  <Card
-    title={post.frontmatter.title}
-    description={post.frontmatter.description}
-    tags={post.frontmatter.tags}
-    image={post.frontmatter.image?.url ?? logo}
-    isNew={isNew(post.frontmatter.pubDate)}
-    pubDate={post.frontmatter.pubDate}
-  />
-</a>
+<Card
+  url={post.url}
+  title={post.frontmatter.title}
+  description={post.frontmatter.description}
+  tags={post.frontmatter.tags}
+  imageSrc={post.frontmatter.image?.url ?? logo}
+  isNew={isNew(post.frontmatter.pubDate)}
+  pubDate={post.frontmatter.pubDate}
+/>
